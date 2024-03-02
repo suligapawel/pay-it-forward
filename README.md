@@ -1,27 +1,46 @@
-
 # Pay it forward
-[![100 commitow](https://img.shields.io/badge/100_commitow-26a641)](https://100commitow.pl/repozytoria)
+[![100 commitow](https://img.shields.io/badge/100_commitow-26a641)](https://100commitow.pl/)
 ![.Net 8](https://img.shields.io/badge/.Net_8-8A2BE2)
 
 > Think of an idea to change our world – and put it into Action
 
-### Inspiracja
+### Inspired by
 
-**Pay it forward** jest to projekt inspirowany filmem o tej samej nazwie. Główny bohater filmu - Trevor McKinney w ramach zadania domowego próbuje zmienić świat. Postanawia pomóc 3 osobom, z założeniem że każda z nich będzie musiała pomóc kolejnym 3 osobom itd.
+**Pay it forward** is a project inspired by the book and movie of the same name. The main character of the film - Trevor McKinney, as part of a homework project, tries to change the world. He decides to help 3 people, with the idea that each of them will have to help another 3 people and so on.
 
-TODO: Tu obrazek
+![emoji-tree](https://github.com/suligapawel/pay-it-forward/blob/main/img/tree.png?raw=true)
 
-### Założenia
+### You can find here
 
 - Domain Driven Design
-- Modularny monolit
+- Modular monolith
 - Test Driven Development
 - Clean Architecture / CRUD
 - CQRS
 
-### Narzędzia
+### Road map
+
+- [ ] Process analisys
+- [ ] Exploring bounded contexts
+- [ ] Modeling 
+- [ ] Creating a solution 
+- [ ] Implementing
+
+### EventStorming
+
+#### Process level
+
+TODO
+
+#### Design level
+
+TODO
+
+### Used Tools
 
 - Miro
 - Rider
-- Postgres (?)
 
+### Contact
+
+pawel.suliga.dev@gmail.com
