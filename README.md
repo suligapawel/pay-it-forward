@@ -30,7 +30,7 @@
 
 #### Process level
 
-TODO
+![main-process](https://github.com/suligapawel/pay-it-forward/blob/master/img/main_process.png?raw=true)
 
 #### Design level
 
