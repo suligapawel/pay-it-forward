@@ -30,7 +30,7 @@
 
 #### Process level
 
-![main-process](https://github.com/suligapawel/pay-it-forward/blob/main/img/main_process.png?raw=true)
+![main-process](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/process_level.png?raw=true)
 
 #### Design level
 
