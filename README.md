@@ -30,11 +30,12 @@
 
 #### Process level
 
-![main-process](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/process_level.png?raw=true)
+![process_level](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/process_level.png?raw=true)
 
 #### Design level
 
-TODO
+**Draft**
+![candidates](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/candidates.png?raw=true)
 
 ### Used Tools
 
