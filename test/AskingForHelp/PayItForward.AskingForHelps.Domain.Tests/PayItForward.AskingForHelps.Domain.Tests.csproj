@@ -19,4 +19,8 @@
         <Using Include="NUnit.Framework" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\AskingForHelp\PayItForward.AskingForHelps.Domain\PayItForward.AskingForHelps.Domain.csproj" />
+    </ItemGroup>
+
 </Project>
