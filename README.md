@@ -34,7 +34,7 @@
 
 #### Design level
 
-**Draft**
+_Draft_
 ![candidates](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/candidates.png?raw=true)
 
 ### Used Tools
