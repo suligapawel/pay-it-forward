@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04773272-5CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AskingForHelp", "AskingForHelp", "{340E9A42-FDE7-4FAA-ADAE-533ED7381836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelp.Domain", "src\AskingForHelp\PayItForward.AskingForHelp.Domain\PayItForward.AskingForHelp.Domain.csproj", "{13536A17-C530-46D2-8B98-2009B10AB12A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelps.Domain", "src\AskingForHelp\PayItForward.AskingForHelps.Domain\PayItForward.AskingForHelps.Domain.csproj", "{13536A17-C530-46D2-8B98-2009B10AB12A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5792C35D-9383-4257-8D62-8F29EA0B3E1C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AskingForHelp", "AskingForHelp", "{FEA2D1C2-966D-4E38-9399-922DEC62D364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelp.Domain.Tests", "test\AskingForHelp\PayItForward.AskingForHelp.Domain.Tests\PayItForward.AskingForHelp.Domain.Tests.csproj", "{83F4AA87-6112-4EA6-AF3F-1ED2AF2967A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelps.Domain.Tests", "test\AskingForHelp\PayItForward.AskingForHelps.Domain.Tests\PayItForward.AskingForHelps.Domain.Tests.csproj", "{83F4AA87-6112-4EA6-AF3F-1ED2AF2967A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
