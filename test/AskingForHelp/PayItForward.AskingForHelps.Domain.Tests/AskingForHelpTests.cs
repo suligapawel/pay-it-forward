@@ -27,13 +27,25 @@ public class AskingForHelpTests
     public void Should_not_add_to_the_group_of_potential_helpers_twice()
     {
         var potentialHelper = AnyPotentialHelper();
-        var askingForHelp = AnyAskingForHelp(new[] { potentialHelper });
+        var askingForHelp = AnyAskingForHelp(potentialHelpers: new[] { potentialHelper });
 
         Assert.Throws<HasAlreadyExpressedInterest>(() => askingForHelp.ExpressInterest(potentialHelper));
     }
 
-    private static AskingForHelp AnyAskingForHelp(IEnumerable<PotentialHelper> potentialHelpers = default)
-        => new(new AskingForHelpId(Guid.NewGuid()), potentialHelpers);
+    [Test]
+    public void Should_not_add_to_the_group_of_potential_helpers_when_potential_helper_is_needy()
+    {
+        var needy = AnyNeedy();
+        var askingForHelp = AnyAskingForHelp(needy: needy);
+
+        Assert.Throws<PotentialHelperAndNeedyAreTheSamePerson>(() => askingForHelp.ExpressInterest(new PotentialHelper(needy.Id)));
+    }
+
+    private static AskingForHelp AnyAskingForHelp(Needy needy = default, IEnumerable<PotentialHelper> potentialHelpers = default)
+        => new(new AskingForHelpId(Guid.NewGuid()), needy ?? new Needy(Guid.NewGuid()), potentialHelpers);
+
+    private static Needy AnyNeedy()
+        => new(Guid.NewGuid());
 
     private static PotentialHelper AnyPotentialHelper()
         => new(Guid.NewGuid());

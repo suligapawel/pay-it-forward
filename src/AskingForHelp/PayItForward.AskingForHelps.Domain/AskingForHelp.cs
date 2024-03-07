@@ -6,17 +6,24 @@ namespace PayItForward.AskingForHelps.Domain;
 
 public class AskingForHelp
 {
+    private readonly Needy _needy;
     private readonly List<PotentialHelper> _groupOfPotentialHelpers;
     public AskingForHelpId Id { get; init; }
 
-    public AskingForHelp(AskingForHelpId id, IEnumerable<PotentialHelper> potentialHelpers)
+    public AskingForHelp(AskingForHelpId id, Needy needy, IEnumerable<PotentialHelper> potentialHelpers)
     {
-        _groupOfPotentialHelpers = potentialHelpers?.ToList() ?? [];
         Id = id;
+        _needy = needy;
+        _groupOfPotentialHelpers = potentialHelpers?.ToList() ?? [];
     }
 
     public InterestExpressed ExpressInterest(PotentialHelper potentialHelper)
     {
+        if (_needy.IsTheSamePersonAs(potentialHelper))
+        {
+            throw new PotentialHelperAndNeedyAreTheSamePerson(potentialHelper);
+        }
+
         if (_groupOfPotentialHelpers.Contains(potentialHelper))
         {
             throw new HasAlreadyExpressedInterest(potentialHelper);
