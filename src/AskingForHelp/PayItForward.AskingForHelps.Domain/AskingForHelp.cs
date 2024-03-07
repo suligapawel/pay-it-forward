@@ -17,6 +17,9 @@ public class AskingForHelp
         _groupOfPotentialHelpers = potentialHelpers?.ToList() ?? [];
     }
 
+    public static AskingForHelp New(AskingForHelpId id, Needy needy)
+        => new(id, needy, null);
+
     public InterestExpressed ExpressInterest(PotentialHelper potentialHelper)
     {
         if (_needy.IsTheSamePersonAs(potentialHelper))
