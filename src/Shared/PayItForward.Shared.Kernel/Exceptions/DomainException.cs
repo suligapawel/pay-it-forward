@@ -1,3 +1,3 @@
-namespace PayItForward.AskingForHelps.Domain.Exceptions;
+namespace PayItForward.Shared.Kernel.Exceptions;
 
 public abstract class DomainException(string message) : Exception(message);

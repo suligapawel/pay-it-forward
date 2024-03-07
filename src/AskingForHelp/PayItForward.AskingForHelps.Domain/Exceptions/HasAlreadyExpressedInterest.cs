@@ -1,4 +1,5 @@
 using PayItForward.AskingForHelps.Domain.ValueObjects;
+using PayItForward.Shared.Kernel.Exceptions;
 
 namespace PayItForward.AskingForHelps.Domain.Exceptions;
 
