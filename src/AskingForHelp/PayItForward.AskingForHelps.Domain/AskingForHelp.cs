@@ -1,4 +1,5 @@
 using PayItForward.AskingForHelps.Domain.Events;
+using PayItForward.AskingForHelps.Domain.Exceptions;
 using PayItForward.AskingForHelps.Domain.ValueObjects;
 
 namespace PayItForward.AskingForHelps.Domain;
@@ -16,6 +17,11 @@ public class AskingForHelp
 
     public InterestExpressed ExpressInterest(PotentialHelper potentialHelper)
     {
+        if (_groupOfPotentialHelpers.Contains(potentialHelper))
+        {
+            throw new HasAlreadyExpressedInterest(potentialHelper);
+        }
+
         _groupOfPotentialHelpers.Add(potentialHelper);
 
         return new InterestExpressed(Id, potentialHelper);
