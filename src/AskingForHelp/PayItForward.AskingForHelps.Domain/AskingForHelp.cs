@@ -8,17 +8,23 @@ public class AskingForHelp
 {
     private readonly Needy _needy;
     private readonly List<PotentialHelper> _groupOfPotentialHelpers;
+    private readonly List<PotentialHelper> _abandoners;
     public AskingForHelpId Id { get; init; }
 
-    public AskingForHelp(AskingForHelpId id, Needy needy, IEnumerable<PotentialHelper> potentialHelpers)
+    public AskingForHelp(
+        AskingForHelpId id,
+        Needy needy,
+        IEnumerable<PotentialHelper> potentialHelpers,
+        IEnumerable<PotentialHelper> abandoners)
     {
         Id = id;
         _needy = needy;
         _groupOfPotentialHelpers = potentialHelpers?.ToList() ?? [];
+        _abandoners = abandoners?.ToList() ?? [];
     }
 
     public static AskingForHelp New(AskingForHelpId id, Needy needy)
-        => new(id, needy, null);
+        => new(id, needy, null, null);
 
     public InterestExpressed ExpressInterest(PotentialHelper potentialHelper)
     {
@@ -30,6 +36,11 @@ public class AskingForHelp
         if (_groupOfPotentialHelpers.Contains(potentialHelper))
         {
             throw new HasAlreadyExpressedInterest(potentialHelper);
+        }
+
+        if (_abandoners.Contains(potentialHelper))
+        {
+            throw new PotentialHelperAbandonedTheRequest(potentialHelper);
         }
 
         _groupOfPotentialHelpers.Add(potentialHelper);

@@ -41,8 +41,21 @@ public class AskingForHelpTests
         Assert.Throws<PotentialHelperAndNeedyAreTheSamePerson>(() => askingForHelp.ExpressInterest(new PotentialHelper(needy.Id)));
     }
 
-    private static AskingForHelp AnyAskingForHelp(Needy needy = default, IEnumerable<PotentialHelper> potentialHelpers = default)
-        => new(new AskingForHelpId(Guid.NewGuid()), needy ?? new Needy(Guid.NewGuid()), potentialHelpers);
+
+    [Test]
+    public void Should_not_add_to_the_group_of_potential_helpers_when_potential_helper_abandoned_the_ask()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var askingForHelp = AnyAskingForHelp(abandoners: new[] { potentialHelper });
+
+        Assert.Throws<PotentialHelperAbandonedTheRequest>(() => askingForHelp.ExpressInterest(potentialHelper));
+    }
+
+    private static AskingForHelp AnyAskingForHelp(
+        Needy needy = default,
+        IEnumerable<PotentialHelper> potentialHelpers = default,
+        IEnumerable<PotentialHelper> abandoners = default)
+        => new(new AskingForHelpId(Guid.NewGuid()), needy ?? new Needy(Guid.NewGuid()), potentialHelpers, abandoners);
 
     private static Needy AnyNeedy()
         => new(Guid.NewGuid());
