@@ -50,6 +50,23 @@ public class AskingForHelpTests
 
         Assert.Throws<PotentialHelperAbandonedTheRequest>(() => askingForHelp.ExpressInterest(potentialHelper));
     }
+    
+    [Test]
+    public void Should_do_not_help()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var askingForHelp = AnyAskingForHelp(potentialHelpers: [potentialHelper]);
+
+        var domainEvent = askingForHelp.DoNotHelp(potentialHelper);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(domainEvent, Is.TypeOf<MindChanged>());
+            Assert.That(domainEvent.AskingForHelpId, Is.EqualTo(askingForHelp.Id));
+            Assert.That(domainEvent.PotentialHelper, Is.EqualTo(potentialHelper));
+            Assert.That(askingForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+        });
+    } 
 
     private static AskingForHelp AnyAskingForHelp(
         Needy needy = default,

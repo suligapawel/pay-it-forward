@@ -47,6 +47,13 @@ public class AskingForHelp
 
         return new InterestExpressed(Id, potentialHelper);
     }
+    
+    public MindChanged DoNotHelp(PotentialHelper potentialHelper)
+    {
+        _groupOfPotentialHelpers.Remove(potentialHelper);
+
+        return new MindChanged(Id, potentialHelper);
+    }
 
     public bool IsInGroupOfPotentialHelpers(PotentialHelper potentialHelper)
         => _groupOfPotentialHelpers.Contains(potentialHelper);
