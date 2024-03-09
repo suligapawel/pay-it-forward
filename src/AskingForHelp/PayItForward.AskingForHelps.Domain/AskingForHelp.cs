@@ -33,7 +33,7 @@ public class AskingForHelp
             throw new PotentialHelperAndNeedyAreTheSamePerson(potentialHelper);
         }
 
-        if (_groupOfPotentialHelpers.Contains(potentialHelper))
+        if (IsInTheGroupOfPotentialHelpers(potentialHelper))
         {
             throw new HasAlreadyExpressedInterest(potentialHelper);
         }
@@ -50,11 +50,19 @@ public class AskingForHelp
     
     public MindChanged DoNotHelp(PotentialHelper potentialHelper)
     {
+        if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
+        {
+            throw new TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers(potentialHelper);
+        }
+        
         _groupOfPotentialHelpers.Remove(potentialHelper);
 
         return new MindChanged(Id, potentialHelper);
     }
 
     public bool IsInGroupOfPotentialHelpers(PotentialHelper potentialHelper)
+        => _groupOfPotentialHelpers.Contains(potentialHelper);
+    
+    private bool IsInTheGroupOfPotentialHelpers(PotentialHelper potentialHelper) 
         => _groupOfPotentialHelpers.Contains(potentialHelper);
 }

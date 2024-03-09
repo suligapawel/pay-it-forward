@@ -67,6 +67,15 @@ public class AskingForHelpTests
             Assert.That(askingForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
         });
     } 
+    
+    [Test]
+    public void Dont_let_leave_the_group_of_potential_helpers_when_the_leaver_does_not_belong_there()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var askingForHelp = AnyAskingForHelp();
+
+        Assert.Throws<TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers>(() => askingForHelp.DoNotHelp(potentialHelper));
+    }
 
     private static AskingForHelp AnyAskingForHelp(
         Needy needy = default,
