@@ -35,7 +35,10 @@
 #### Design level
 
 _Draft_
-![candidates](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/candidates.png?raw=true)
+
+![bounded_context_map](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/bounded_context_map.png?raw=true)
+
+![bounded_contexts](https://github.com/suligapawel/pay-it-forward/blob/main/img/EventStorming/bounded_contexts.png?raw=true)
 
 ### Used Tools
 
