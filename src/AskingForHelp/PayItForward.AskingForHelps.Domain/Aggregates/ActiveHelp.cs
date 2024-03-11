@@ -1,3 +1,4 @@
+using PayItForward.AskingForHelps.Domain.Dicionaries;
 using PayItForward.AskingForHelps.Domain.Events;
 using PayItForward.AskingForHelps.Domain.Exceptions;
 using PayItForward.AskingForHelps.Domain.ValueObjects;
@@ -9,34 +10,40 @@ public class ActiveHelp
 {
     private readonly Helper _helper;
     private readonly DateTime _expiryDate;
-    private bool _completed;
+    private ActiveHelpState _state;
     public ActiveHelpId Id { get; init; }
 
-    public ActiveHelp(ActiveHelpId id, Helper helper, DateTime expiryDate)
+    public ActiveHelp(ActiveHelpId id, Helper helper, DateTime expiryDate, ActiveHelpState state)
     {
+        Id = id;
         _helper = helper;
         _expiryDate = expiryDate;
-        Id = id;
+        _state = state;
     }
 
     public HelpCompleted CompleteBy(Helper helper, IClock clock)
     {
-        _completed = true;
-
         if (!_helper.AmITheHelper(helper))
         {
             throw new TheHelperIsSomeoneElse(helper);
         }
-        
+
+        if (!IsActive())
+        {
+            throw new TheHelpIsNotActive(Id);
+        }
+
         if (TimeIsUp(clock))
         {
             throw new TimeIsUp(Id.Value);
         }
 
+        _state = ActiveHelpState.Completed;
         return new HelpCompleted(Id, helper);
     }
 
-    public bool IsCompleted() => _completed;
+    public bool IsActive()
+        => !_state.HasFlag(ActiveHelpState.Completed) && !_state.HasFlag(ActiveHelpState.Approved);
 
     private bool TimeIsUp(IClock clock) => _expiryDate < clock.Now;
 }
