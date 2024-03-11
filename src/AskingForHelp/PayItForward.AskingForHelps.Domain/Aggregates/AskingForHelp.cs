@@ -2,7 +2,7 @@ using PayItForward.AskingForHelps.Domain.Events;
 using PayItForward.AskingForHelps.Domain.Exceptions;
 using PayItForward.AskingForHelps.Domain.ValueObjects;
 
-namespace PayItForward.AskingForHelps.Domain;
+namespace PayItForward.AskingForHelps.Domain.Aggregates;
 
 public class AskingForHelp
 {

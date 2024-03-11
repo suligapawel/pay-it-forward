@@ -1,3 +1,4 @@
+using PayItForward.AskingForHelps.Domain.Aggregates;
 using PayItForward.AskingForHelps.Domain.Events;
 using PayItForward.AskingForHelps.Domain.Exceptions;
 using PayItForward.AskingForHelps.Domain.ValueObjects;
