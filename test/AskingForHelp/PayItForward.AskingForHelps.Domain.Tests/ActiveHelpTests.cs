@@ -11,9 +11,8 @@ public class ActiveHelpTests
     [Test]
     public void Should_complete_the_active_help()
     {
-        var expiryDate = new DateTime(2024, 03, 12, 23, 56, 00);
-        var activeHelp = new ActiveHelp(new ActiveHelpId(Guid.NewGuid()), expiryDate);
-        var helper = new Helper(Guid.NewGuid());
+        var helper = AnyHelper();
+        var activeHelp = AnyActiveHelp(helper: helper);
 
         var domainEvent = activeHelp.CompleteBy(helper, new TestClock());
 
@@ -29,10 +28,29 @@ public class ActiveHelpTests
     [Test]
     public void Should_not_complete_the_active_help_when_time_is_up()
     {
+        var helper = AnyHelper();
         var expiryDate = new DateTime(2024, 03, 10, 23, 56, 00);
-        var activeHelp = new ActiveHelp(new ActiveHelpId(Guid.NewGuid()), expiryDate);
-        var helper = new Helper(Guid.NewGuid());
+        var activeHelp = AnyActiveHelp(helper: helper, expiryDate: expiryDate);
 
         Assert.Throws<TimeIsUp>(() => activeHelp.CompleteBy(helper, new TestClock()));
     }
+
+
+    [Test]
+    public void Should_not_complete_the_active_help_when_someone_else_tries_complete_the_help()
+    {
+        var activeHelp = AnyActiveHelp();
+        var helper = AnyHelper();
+
+        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.CompleteBy(helper, new TestClock()));
+    }
+
+    private static ActiveHelp AnyActiveHelp(Helper helper = null, DateTime expiryDate = default)
+        => new(
+            new ActiveHelpId(Guid.NewGuid()),
+            helper ?? AnyHelper(),
+            expiryDate == default ? AnyNotExpiredDate() : expiryDate);
+
+    private static Helper AnyHelper() => new(Guid.NewGuid());
+    private static DateTime AnyNotExpiredDate() => new(2024, 03, 12, 23, 56, 00);
 }

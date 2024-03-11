@@ -7,12 +7,14 @@ namespace PayItForward.AskingForHelps.Domain.Aggregates;
 
 public class ActiveHelp
 {
+    private readonly Helper _helper;
     private readonly DateTime _expiryDate;
     private bool _completed;
     public ActiveHelpId Id { get; init; }
 
-    public ActiveHelp(ActiveHelpId id, DateTime expiryDate)
+    public ActiveHelp(ActiveHelpId id, Helper helper, DateTime expiryDate)
     {
+        _helper = helper;
         _expiryDate = expiryDate;
         Id = id;
     }
@@ -21,6 +23,11 @@ public class ActiveHelp
     {
         _completed = true;
 
+        if (!_helper.AmITheHelper(helper))
+        {
+            throw new TheHelperIsSomeoneElse(helper);
+        }
+        
         if (TimeIsUp(clock))
         {
             throw new TimeIsUp(Id.Value);
