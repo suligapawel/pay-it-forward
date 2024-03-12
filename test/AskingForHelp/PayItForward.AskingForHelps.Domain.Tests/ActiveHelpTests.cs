@@ -50,6 +50,7 @@ public class ActiveHelpTests
 
     [TestCase(ActiveHelpState.Completed)]
     [TestCase(ActiveHelpState.Approved)]
+    [TestCase(ActiveHelpState.Abandoned)]
     public void Should_not_complete_the_active_help_when_it_is_not_active(ActiveHelpState state)
     {
         var helper = AnyHelper();
@@ -83,6 +84,18 @@ public class ActiveHelpTests
 
         Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Abandon(AnyHelper()));
         Assert.That(activeHelp.IsActive(), Is.True);
+    }
+    
+    [TestCase(ActiveHelpState.Completed)]
+    [TestCase(ActiveHelpState.Approved)]
+    [TestCase(ActiveHelpState.Abandoned)]
+    public void Should_not_abandon_the_active_help_when_it_is_not_active(ActiveHelpState state)
+    {
+        var helper = AnyHelper();
+        var activeHelp = AnyActiveHelp(helper: helper, state: state);
+
+        Assert.Throws<TheHelpIsNotActive>(() => activeHelp.Abandon(helper));
+        Assert.That(activeHelp.IsActive(), Is.False);
     }
 
     private static ActiveHelp AnyActiveHelp(
