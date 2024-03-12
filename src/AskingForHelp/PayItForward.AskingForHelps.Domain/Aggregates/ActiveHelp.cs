@@ -48,26 +48,24 @@ public class ActiveHelp
         {
             throw new TheHelperIsSomeoneElse(helper);
         }
-        
+
         if (!IsActive())
         {
             throw new TheHelpIsNotActive(Id);
         }
-        
+
         if (TimeIsUp(clock))
         {
             throw new TimeIsUp(Id.Value);
         }
-        
+
         _state = ActiveHelpState.Abandoned;
 
         return new HelpAbandoned(Id, helper, clock.Now);
     }
 
     public bool IsActive()
-        => !_state.HasFlag(ActiveHelpState.Completed)
-           && !_state.HasFlag(ActiveHelpState.Approved)
-           && !_state.HasFlag(ActiveHelpState.Abandoned);
+        => !_state.HasFlag(ActiveHelpState.Completed) && !_state.HasFlag(ActiveHelpState.Abandoned);
 
     private bool TimeIsUp(IClock clock) => _expiryDate < clock.Now;
 }

@@ -48,7 +48,6 @@ public class ActiveHelpTests
     }
 
     [TestCase(ActiveHelpState.Completed)]
-    [TestCase(ActiveHelpState.Approved)]
     [TestCase(ActiveHelpState.Abandoned)]
     public void Should_not_complete_the_active_help_when_it_is_not_active(ActiveHelpState state)
     {
@@ -86,7 +85,6 @@ public class ActiveHelpTests
     }
 
     [TestCase(ActiveHelpState.Completed)]
-    [TestCase(ActiveHelpState.Approved)]
     [TestCase(ActiveHelpState.Abandoned)]
     public void Should_not_abandon_the_active_help_when_it_is_not_active(ActiveHelpState state)
     {
