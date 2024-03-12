@@ -15,7 +15,7 @@ public class ActiveHelpTests
         var helper = AnyHelper();
         var activeHelp = AnyActiveHelp(helper: helper);
 
-        var domainEvent = activeHelp.CompleteBy(helper, new TestClock());
+        var domainEvent = activeHelp.Complete(helper, new TestClock());
 
         Assert.Multiple(() =>
         {
@@ -33,7 +33,7 @@ public class ActiveHelpTests
         var expiryDate = new DateTime(2024, 03, 10, 23, 56, 00);
         var activeHelp = AnyActiveHelp(helper: helper, expiryDate: expiryDate);
 
-        Assert.Throws<TimeIsUp>(() => activeHelp.CompleteBy(helper, new TestClock()));
+        Assert.Throws<TimeIsUp>(() => activeHelp.Complete(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.True);
     }
 
@@ -44,7 +44,7 @@ public class ActiveHelpTests
         var activeHelp = AnyActiveHelp();
         var helper = AnyHelper();
 
-        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.CompleteBy(helper, new TestClock()));
+        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Complete(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.True);
     }
     
@@ -55,8 +55,25 @@ public class ActiveHelpTests
         var helper = AnyHelper();
         var activeHelp = AnyActiveHelp(helper: helper, state: state);
 
-        Assert.Throws<TheHelpIsNotActive>(() => activeHelp.CompleteBy(helper, new TestClock()));
+        Assert.Throws<TheHelpIsNotActive>(() => activeHelp.Complete(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.False);
+    }
+
+    [Test]
+    public void Should_abandon()
+    {
+        var helper = AnyHelper();
+        var activeHelp = AnyActiveHelp(helper: helper);
+
+        var domainEvent = activeHelp.Abandon(helper);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(domainEvent, Is.TypeOf<HelpAbandoned>());
+            Assert.That(domainEvent.HelpId, Is.EqualTo(activeHelp.Id));
+            Assert.That(domainEvent.Helper, Is.EqualTo(helper));
+            Assert.That(activeHelp.IsActive(), Is.False);
+        });
     }
 
     private static ActiveHelp AnyActiveHelp(

@@ -21,7 +21,7 @@ public class ActiveHelp
         _state = state;
     }
 
-    public HelpCompleted CompleteBy(Helper helper, IClock clock)
+    public HelpCompleted Complete(Helper helper, IClock clock)
     {
         if (!_helper.AmITheHelper(helper))
         {
@@ -42,8 +42,17 @@ public class ActiveHelp
         return new HelpCompleted(Id, helper);
     }
 
+    public HelpAbandoned Abandon(Helper helper)
+    {
+        _state = ActiveHelpState.Abandoned;
+
+        return new HelpAbandoned(Id, helper);
+    }
+
     public bool IsActive()
-        => !_state.HasFlag(ActiveHelpState.Completed) && !_state.HasFlag(ActiveHelpState.Approved);
+        => !_state.HasFlag(ActiveHelpState.Completed)
+           && !_state.HasFlag(ActiveHelpState.Approved)
+           && !_state.HasFlag(ActiveHelpState.Abandoned);
 
     private bool TimeIsUp(IClock clock) => _expiryDate < clock.Now;
 }
