@@ -44,6 +44,11 @@ public class ActiveHelp
 
     public HelpAbandoned Abandon(Helper helper)
     {
+        if (!_helper.AmITheHelper(helper))
+        {
+            throw new TheHelperIsSomeoneElse(helper);
+        }
+        
         _state = ActiveHelpState.Abandoned;
 
         return new HelpAbandoned(Id, helper);

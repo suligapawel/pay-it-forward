@@ -47,7 +47,7 @@ public class ActiveHelpTests
         Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Complete(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.True);
     }
-    
+
     [TestCase(ActiveHelpState.Completed)]
     [TestCase(ActiveHelpState.Approved)]
     public void Should_not_complete_the_active_help_when_it_is_not_active(ActiveHelpState state)
@@ -76,8 +76,17 @@ public class ActiveHelpTests
         });
     }
 
+    [Test]
+    public void Should_not_abandon_when_someone_else_tries_abandon_the_help()
+    {
+        var activeHelp = AnyActiveHelp();
+
+        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Abandon(AnyHelper()));
+        Assert.That(activeHelp.IsActive(), Is.True);
+    }
+
     private static ActiveHelp AnyActiveHelp(
-        Helper helper = null, 
+        Helper helper = null,
         DateTime expiryDate = default,
         ActiveHelpState state = ActiveHelpState.Active)
         => new(
