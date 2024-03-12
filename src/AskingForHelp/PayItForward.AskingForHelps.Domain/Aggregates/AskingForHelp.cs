@@ -4,7 +4,7 @@ using PayItForward.AskingForHelps.Domain.ValueObjects;
 
 namespace PayItForward.AskingForHelps.Domain.Aggregates;
 
-public class AskingForHelp
+public sealed class AskingForHelp
 {
     private readonly Needy _needy;
     private readonly List<PotentialHelper> _groupOfPotentialHelpers;

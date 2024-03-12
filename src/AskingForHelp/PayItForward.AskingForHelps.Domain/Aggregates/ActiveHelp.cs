@@ -6,7 +6,7 @@ using PayItForward.Shared.Kernel.Helpers;
 
 namespace PayItForward.AskingForHelps.Domain.Aggregates;
 
-public class ActiveHelp
+public sealed class ActiveHelp
 {
     private readonly Helper _helper;
     private readonly DateTime _expiryDate;
