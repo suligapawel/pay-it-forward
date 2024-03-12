@@ -39,10 +39,10 @@ public class ActiveHelp
         }
 
         _state = ActiveHelpState.Completed;
-        return new HelpCompleted(Id, helper);
+        return new HelpCompleted(Id, helper, clock.Now);
     }
 
-    public HelpAbandoned Abandon(Helper helper)
+    public HelpAbandoned Abandon(Helper helper, IClock clock)
     {
         if (!_helper.AmITheHelper(helper))
         {
@@ -54,9 +54,14 @@ public class ActiveHelp
             throw new TheHelpIsNotActive(Id);
         }
         
+        if (TimeIsUp(clock))
+        {
+            throw new TimeIsUp(Id.Value);
+        }
+        
         _state = ActiveHelpState.Abandoned;
 
-        return new HelpAbandoned(Id, helper);
+        return new HelpAbandoned(Id, helper, clock.Now);
     }
 
     public bool IsActive()

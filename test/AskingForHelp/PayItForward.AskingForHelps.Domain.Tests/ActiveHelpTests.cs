@@ -36,8 +36,7 @@ public class ActiveHelpTests
         Assert.Throws<TimeIsUp>(() => activeHelp.Complete(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.True);
     }
-
-
+    
     [Test]
     public void Should_not_complete_the_active_help_when_someone_else_tries_complete_the_help()
     {
@@ -66,7 +65,7 @@ public class ActiveHelpTests
         var helper = AnyHelper();
         var activeHelp = AnyActiveHelp(helper: helper);
 
-        var domainEvent = activeHelp.Abandon(helper);
+        var domainEvent = activeHelp.Abandon(helper, new TestClock());
 
         Assert.Multiple(() =>
         {
@@ -82,10 +81,10 @@ public class ActiveHelpTests
     {
         var activeHelp = AnyActiveHelp();
 
-        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Abandon(AnyHelper()));
+        Assert.Throws<TheHelperIsSomeoneElse>(() => activeHelp.Abandon(AnyHelper(), new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.True);
     }
-    
+
     [TestCase(ActiveHelpState.Completed)]
     [TestCase(ActiveHelpState.Approved)]
     [TestCase(ActiveHelpState.Abandoned)]
@@ -94,8 +93,19 @@ public class ActiveHelpTests
         var helper = AnyHelper();
         var activeHelp = AnyActiveHelp(helper: helper, state: state);
 
-        Assert.Throws<TheHelpIsNotActive>(() => activeHelp.Abandon(helper));
+        Assert.Throws<TheHelpIsNotActive>(() => activeHelp.Abandon(helper, new TestClock()));
         Assert.That(activeHelp.IsActive(), Is.False);
+    }
+    
+    [Test]
+    public void Should_not_abandon_the_active_help_when_time_is_up()
+    {
+        var helper = AnyHelper();
+        var expiryDate = new DateTime(2024, 03, 10, 23, 56, 00);
+        var activeHelp = AnyActiveHelp(helper: helper, expiryDate: expiryDate);
+
+        Assert.Throws<TimeIsUp>(() => activeHelp.Abandon(helper, new TestClock()));
+        Assert.That(activeHelp.IsActive(), Is.True);
     }
 
     private static ActiveHelp AnyActiveHelp(

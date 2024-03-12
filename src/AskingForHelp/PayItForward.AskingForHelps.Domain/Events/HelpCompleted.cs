@@ -3,4 +3,4 @@ using PayItForward.Shared.Kernel.Events;
 
 namespace PayItForward.AskingForHelps.Domain.Events;
 
-public record HelpCompleted(ActiveHelpId ActiveHelpId, Helper Helper) : DomainEvent;
+public record HelpCompleted(ActiveHelpId ActiveHelpId, Helper Helper, DateTime At) : DomainEvent;

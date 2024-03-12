@@ -3,4 +3,4 @@ using PayItForward.Shared.Kernel.Events;
 
 namespace PayItForward.AskingForHelps.Domain.Events;
 
-public record HelpAbandoned(ActiveHelpId HelpId, Helper Helper) : DomainEvent;
+public record HelpAbandoned(ActiveHelpId HelpId, Helper Helper, DateTime At) : DomainEvent;
