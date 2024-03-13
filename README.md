@@ -42,7 +42,7 @@ _Draft_
 
 ### Used Tools
 
-- Miro
+- Miro (_https://miro.com/app/board/uXjVOpgyxtw=/_)
 - Rider
 
 ### Contact
