@@ -1,6 +1,6 @@
 namespace PayItForward.HelpAccounts.Core.Entities;
 
-public class HelpAccount
+public sealed class HelpAccount
 {
     public Guid AccountOwner { get; init; }
     public int Value { get; private set; }
@@ -11,19 +11,19 @@ public class HelpAccount
         Value = value;
     }
 
-    public void Incur(int value)
+    public void Incur()
     {
         if (Value < 0)
         {
             return;
         }
 
-        Value -= value;
+        Value -= 3;
     }
 
-    public void PayOff(int value)
+    public void PayOff()
     {
-        Value += value;
+        Value++;
     }
 
     public bool CanIncurTheDebt() => Value >= 0;

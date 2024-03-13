@@ -4,14 +4,15 @@ namespace PayItForward.Debts.Core.Tests;
 
 public class HelpAccountTests
 {
-    [Test]
-    public void Should_incur_the_debt()
+    [TestCase(0)]
+    [TestCase(1)]
+    public void Should_incur_the_debt(int actualAccountValue)
     {
-        var helpAccount = new HelpAccount(Guid.NewGuid(), 0);
+        var helpAccount = new HelpAccount(Guid.NewGuid(), actualAccountValue);
 
-        helpAccount.Incur(3);
+        helpAccount.Incur();
 
-        Assert.That(helpAccount.Value, Is.EqualTo(-3));
+        Assert.That(helpAccount.Value, Is.EqualTo(actualAccountValue - 3));
     }
 
     [Test]
@@ -19,16 +20,16 @@ public class HelpAccountTests
     {
         var helpAccount = new HelpAccount(Guid.NewGuid(), -1);
 
-        helpAccount.Incur(3);
+        helpAccount.Incur();
 
         Assert.That(helpAccount.Value, Is.EqualTo(-1));
     }
 
     [TestCase(0)]
     [TestCase(1)]
-    public void Should_can_incur_the_debt(int debtValue)
+    public void Should_can_incur_the_debt(int actualAccountValue)
     {
-        var helpAccount = new HelpAccount(Guid.NewGuid(), debtValue);
+        var helpAccount = new HelpAccount(Guid.NewGuid(), actualAccountValue);
 
         var result = helpAccount.CanIncurTheDebt();
 
@@ -44,15 +45,15 @@ public class HelpAccountTests
 
         Assert.That(result, Is.False);
     }
-    
-    [TestCase(-1, 1, 0)]
-    [TestCase(2, 1, 3)]
-    public void Should_pay_off_the_debt(int actualDebtValue, int payOffValue, int result)
+
+    [TestCase(-1)]
+    [TestCase(2)]
+    public void Should_pay_off_the_debt(int actualAccountValue)
     {
-        var helpAccount = new HelpAccount(Guid.NewGuid(), actualDebtValue);
+        var helpAccount = new HelpAccount(Guid.NewGuid(), actualAccountValue);
 
-        helpAccount.PayOff(payOffValue);
+        helpAccount.PayOff();
 
-        Assert.That(helpAccount.Value, Is.EqualTo(result));
+        Assert.That(helpAccount.Value, Is.EqualTo(actualAccountValue + 1));
     }
 }
