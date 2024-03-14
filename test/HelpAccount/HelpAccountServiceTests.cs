@@ -47,4 +47,28 @@ public class HelpAccountServiceTests
     {
         Assert.ThrowsAsync<NotFound>(() => _service.PayOffDebt(Guid.NewGuid()));
     }
+    
+    [Test]
+    public async Task Should_can_incur_debt_when_help_account_value_is_not_less_than_0()
+    {
+        var result = await _service.CanIncurDebt(AccountOwnerId);
+        
+        Assert.That(result, Is.True);
+    }
+    
+    [Test]
+    public async Task Should_cannot_incur_debt_when_help_account_value_is_less_than_0()
+    {
+        await _service.IncurDebt(AccountOwnerId);
+        
+        var result = await _service.CanIncurDebt(AccountOwnerId);
+        
+        Assert.That(result, Is.False);
+    }
+    
+    [Test]
+    public void Should_throw_not_found_when_help_account_does_not_exist()
+    {
+        Assert.ThrowsAsync<NotFound>(() => _service.CanIncurDebt(Guid.NewGuid()));
+    }
 }

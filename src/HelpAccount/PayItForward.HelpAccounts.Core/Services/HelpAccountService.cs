@@ -39,6 +39,14 @@ internal sealed class HelpAccountService : IHelpAccountService
         await _helpAccounts.Update(helpAccount);
     }
 
-    public Task<bool> CanIncurDebt(Guid accountOwnerId)
-        => Task.FromResult(true);
+    public async Task<bool> CanIncurDebt(Guid accountOwnerId)
+    {
+        var helpAccount = await _helpAccounts.Get(accountOwnerId);
+        if (helpAccount is null)
+        {
+            throw new NotFound(typeof(HelpAccount), accountOwnerId);
+        }
+
+        return helpAccount.CanIncurTheDebt();
+    }
 }
