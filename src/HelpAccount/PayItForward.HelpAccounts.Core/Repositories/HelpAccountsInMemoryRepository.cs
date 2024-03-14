@@ -2,7 +2,7 @@ using PayItForward.HelpAccounts.Core.Entities;
 
 namespace PayItForward.HelpAccounts.Core.Repositories;
 
-public class HelpAccountsRepository : IHelpAccountsRepository
+public class HelpAccountsInMemoryRepository : IHelpAccountsRepository
 {
     private static readonly Guid AccountOwnerId = Guid.Parse("566d3130-7986-4fcd-9fba-b675e38bf478");
 

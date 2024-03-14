@@ -8,6 +8,6 @@ public static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddCqrs(this IServiceCollection services)
         => services
-            .AddScoped<IHelpAccountsRepository, HelpAccountsRepository>()
+            .AddScoped<IHelpAccountsRepository, HelpAccountsInMemoryRepository>()
             .AddScoped<IHelpAccountService, HelpAccountService>();
 }
