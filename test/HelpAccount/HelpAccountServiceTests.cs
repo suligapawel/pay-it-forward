@@ -1,3 +1,4 @@
+using PayItForward.Debts.Core.Tests.Fixtures;
 using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
 using PayItForward.HelpAccounts.Core.Services;
@@ -13,7 +14,7 @@ public class HelpAccountServiceTests
     [SetUp]
     public void SetUp()
     {
-        _helpAccountsInMemoryRepository = new HelpAccountsInMemoryRepository();
+        _helpAccountsInMemoryRepository = new HelpAccountsForTestsRepository();
         _service = new HelpAccountService(_helpAccountsInMemoryRepository);
     }
     
@@ -30,5 +31,20 @@ public class HelpAccountServiceTests
     public void  Should_not_incur_debt_when_it_does_not_exist()
     {
          Assert.ThrowsAsync<NotFound>(() => _service.IncurDebt(Guid.NewGuid()));
+    }
+    
+    [Test]
+    public async Task Should_pay_off_debt()
+    {
+        await _service.PayOffDebt(AccountOwnerId);
+
+        var result = await _helpAccountsInMemoryRepository.Get(AccountOwnerId);
+        Assert.That(result.Value, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void  Should_not_pay_off_debt_when_it_does_not_exist()
+    {
+        Assert.ThrowsAsync<NotFound>(() => _service.PayOffDebt(Guid.NewGuid()));
     }
 }
