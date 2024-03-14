@@ -9,7 +9,8 @@ public class HelpAccountsInMemoryRepository : IHelpAccountsRepository
     private static readonly Dictionary<Guid, HelpAccount> HelpAccounts =
         new() { { AccountOwnerId, new HelpAccount(AccountOwnerId, 0) } };
 
-    public Task<HelpAccount> Get(Guid id) => Task.FromResult(HelpAccounts[AccountOwnerId]);
+    public Task<HelpAccount> Get(Guid accountOwnerId)
+        => Task.FromResult(HelpAccounts.GetValueOrDefault(accountOwnerId));
 
     public Task Insert(HelpAccount helpAccount)
     {

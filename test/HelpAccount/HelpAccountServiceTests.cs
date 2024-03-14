@@ -1,3 +1,4 @@
+using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
 using PayItForward.HelpAccounts.Core.Services;
 
@@ -23,5 +24,11 @@ public class HelpAccountServiceTests
 
         var result = await _helpAccountsInMemoryRepository.Get(AccountOwnerId);
         Assert.That(result.Value, Is.EqualTo(-3));
+    }
+
+    [Test]
+    public void  Should_not_incur_debt_when_it_does_not_exist()
+    {
+         Assert.ThrowsAsync<NotFound>(() => _service.IncurDebt(Guid.NewGuid()));
     }
 }

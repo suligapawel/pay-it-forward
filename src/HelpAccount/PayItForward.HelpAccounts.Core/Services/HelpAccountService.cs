@@ -1,3 +1,5 @@
+using PayItForward.HelpAccounts.Core.Entities;
+using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
 
 namespace PayItForward.HelpAccounts.Core.Services;
@@ -14,6 +16,10 @@ internal sealed class HelpAccountService : IHelpAccountService
     public async Task IncurDebt(Guid accountOwnerId)
     {
         var helpAccount = await _helpAccounts.Get(accountOwnerId);
+        if (helpAccount is null)
+        {
+            throw new NotFound(typeof(HelpAccount), accountOwnerId);
+        }
 
         helpAccount.Incur();
 
