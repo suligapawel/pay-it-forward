@@ -3,8 +3,6 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
     </PropertyGroup>
@@ -19,6 +17,11 @@
 
     <ItemGroup>
         <Using Include="NUnit.Framework"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Helps\PayItForward.Helps.Application\PayItForward.Helps.Application.csproj" />
+      <ProjectReference Include="..\..\Shared\PayItForward.Tests.Shared\PayItForward.Tests.Shared.csproj" />
     </ItemGroup>
 
 </Project>
