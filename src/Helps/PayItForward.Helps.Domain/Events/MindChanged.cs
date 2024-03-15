@@ -3,4 +3,4 @@ using PayItForward.Shared.Kernel.Events;
 
 namespace PayItForward.Helps.Domain.Events;
 
-public record MindChanged(AskingForHelpId AskingForHelpId, PotentialHelper PotentialHelper) : DomainEvent;
+public record MindChanged(RequestForHelpId RequestForHelpId, PotentialHelper PotentialHelper) : DomainEvent;

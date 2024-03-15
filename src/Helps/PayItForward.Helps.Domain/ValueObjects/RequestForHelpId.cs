@@ -1,3 +1,3 @@
 namespace PayItForward.Helps.Domain.ValueObjects;
 
-public record AskingForHelpId(Guid Id);
+public record RequestForHelpId(Guid Id);

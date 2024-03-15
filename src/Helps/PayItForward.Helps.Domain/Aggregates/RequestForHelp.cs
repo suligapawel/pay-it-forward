@@ -4,15 +4,15 @@ using PayItForward.Helps.Domain.ValueObjects;
 
 namespace PayItForward.Helps.Domain.Aggregates;
 
-public sealed class AskingForHelp
+public sealed class RequestForHelp
 {
     private readonly Needy _needy;
     private readonly List<PotentialHelper> _groupOfPotentialHelpers;
     private readonly List<PotentialHelper> _abandoners;
-    public AskingForHelpId Id { get; init; }
+    public RequestForHelpId Id { get; init; }
 
-    public AskingForHelp(
-        AskingForHelpId id,
+    public RequestForHelp(
+        RequestForHelpId id,
         Needy needy,
         IEnumerable<PotentialHelper> potentialHelpers,
         IEnumerable<PotentialHelper> abandoners)
@@ -23,7 +23,7 @@ public sealed class AskingForHelp
         _abandoners = abandoners?.ToList() ?? [];
     }
 
-    public static AskingForHelp New(AskingForHelpId id, Needy needy)
+    public static RequestForHelp New(RequestForHelpId id, Needy needy)
         => new(id, needy, null, null);
 
     public InterestExpressed ExpressInterest(PotentialHelper potentialHelper)
