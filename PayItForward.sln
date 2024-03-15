@@ -5,15 +5,15 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{04773272-5CE6-44FB-9F0E-FE947C5DD7D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AskingForHelp", "AskingForHelp", "{340E9A42-FDE7-4FAA-ADAE-533ED7381836}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helps", "Helps", "{340E9A42-FDE7-4FAA-ADAE-533ED7381836}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelps.Domain", "src\AskingForHelp\PayItForward.AskingForHelps.Domain\PayItForward.AskingForHelps.Domain.csproj", "{13536A17-C530-46D2-8B98-2009B10AB12A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Helps.Domain", "src\Helps\PayItForward.Helps.Domain\PayItForward.Helps.Domain.csproj", "{13536A17-C530-46D2-8B98-2009B10AB12A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5792C35D-9383-4257-8D62-8F29EA0B3E1C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AskingForHelp", "AskingForHelp", "{FEA2D1C2-966D-4E38-9399-922DEC62D364}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helps", "Helps", "{FEA2D1C2-966D-4E38-9399-922DEC62D364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.AskingForHelps.Domain.Tests", "test\AskingForHelp\PayItForward.AskingForHelps.Domain.Tests\PayItForward.AskingForHelps.Domain.Tests.csproj", "{83F4AA87-6112-4EA6-AF3F-1ED2AF2967A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Helps.Domain.Tests", "test\Helps\PayItForward.Helps.Domain.Tests\PayItForward.Helps.Domain.Tests.csproj", "{83F4AA87-6112-4EA6-AF3F-1ED2AF2967A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{FB95D669-9BDE-42CD-B4F3-423105916538}"
 EndProject
