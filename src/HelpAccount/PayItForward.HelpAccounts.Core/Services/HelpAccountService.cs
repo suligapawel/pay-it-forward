@@ -1,10 +1,11 @@
 using PayItForward.HelpAccounts.Core.Entities;
 using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
+using PayItForward.HelpAccounts.Shared;
 
 namespace PayItForward.HelpAccounts.Core.Services;
 
-internal sealed class HelpAccountService : IHelpAccountService
+internal sealed class HelpAccountService : IHelpAccountService, IHelpAccountProxy
 {
     private readonly IHelpAccountsRepository _helpAccounts;
 
