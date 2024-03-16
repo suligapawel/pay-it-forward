@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\HelpAccount\PayItForward.HelpAccounts.Shared\PayItForward.HelpAccounts.Shared.csproj" />
       <ProjectReference Include="..\..\Shared\PayItForward.Shared.CQRS\PayItForward.Shared.CQRS.csproj" />
+      <ProjectReference Include="..\..\Shared\PayItForward.Shared.Implementations\PayItForward.Shared.Implementations.csproj" />
       <ProjectReference Include="..\PayItForward.Helps.Domain\PayItForward.Helps.Domain.csproj" />
     </ItemGroup>
 
