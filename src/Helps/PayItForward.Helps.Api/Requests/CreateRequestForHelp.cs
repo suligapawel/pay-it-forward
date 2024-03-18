@@ -7,5 +7,6 @@ internal sealed record CreateRequestForHelp(string Description) : IRequest
 {
     public static CreateRequestForHelpCommand AsCommand(Guid userId) => new(new Needy(userId));
 
-    public bool IsValid() => throw new NotImplementedException();
+    // TODO: valid obscene words
+    public bool IsValid() => !string.IsNullOrWhiteSpace(Description);
 }
