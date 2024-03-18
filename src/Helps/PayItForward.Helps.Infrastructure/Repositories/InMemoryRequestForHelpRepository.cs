@@ -4,7 +4,7 @@ using PayItForward.Helps.Domain.ValueObjects;
 
 namespace PayItForward.Helps.Infrastructure.Repositories;
 
-public class InMemoryRequestForHelpRepository : IRequestForHelpRepository
+internal sealed class InMemoryRequestForHelpRepository : IRequestForHelpRepository
 {
     private static readonly Dictionary<RequestForHelpId, RequestForHelp> RequestsForHelp = new();
 
