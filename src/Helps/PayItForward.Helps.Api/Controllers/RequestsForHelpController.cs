@@ -17,12 +17,14 @@ internal static class RequestsForHelpController
 
     private static RouteHandlerBuilder Post(this IEndpointRouteBuilder app)
         => app.MapPost("/requests-for-help", async
-            ([FromServices] ICommandDispatcher dispatcher) => // TODO: Add body
-        {
-            // TODO: ICurrentUserService
-            var command = CreateRequestForHelp.AsCommand(Guid.NewGuid());
-            await dispatcher.Execute(command);
+                ([FromServices] ICommandDispatcher dispatcher) => // TODO: Add body
+            {
+                // TODO: ICurrentUserService
+                var command = CreateRequestForHelp.AsCommand(Guid.NewGuid());
+                await dispatcher.Execute(command);
 
-            return TypedResults.Ok(command.AggregateId);
-        });
+                return TypedResults.Ok(command.AggregateId);
+            })
+            .WithTags("Requests for help")
+            .WithOpenApi();
 }
