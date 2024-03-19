@@ -6,10 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\..\HelpAccount\PayItForward.HelpAccounts.Core\PayItForward.HelpAccounts.Core.csproj" />
       <ProjectReference Include="..\..\Shared\PayItForward.Shared.Requests\PayItForward.Shared.Requests.csproj" />
       <ProjectReference Include="..\PayItForward.Helps.Infrastructure\PayItForward.Helps.Infrastructure.csproj" />
