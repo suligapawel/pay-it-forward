@@ -1,0 +1,9 @@
+@PayItForward.Gateway.Api_HostAddress = http://localhost:5000
+
+POST {{PayItForward.Gateway.Api_HostAddress}}/requests-for-help/
+Accept: application/json
+Content-Type: application/json
+
+{"description": "test"}
+
+###

@@ -1,20 +1,22 @@
 using PayItForward.HelpAccounts.Core;
-using PayItForward.Helps.Api.Controllers;
-using PayItForward.Helps.Application;
-using PayItForward.Helps.Application.Commands;
-using PayItForward.Helps.Infrastructure;
+using PayItForward.Helps.Api;
 using PayItForward.Shared.CQRS;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddCqrs(typeof(CreateRequestForHelp).Assembly);
 
 builder.Services
-    .AddApplication()
-    .AddInfrastructure()
-    .AddHelpAccounts(); // TODO: remove this reference
+    .AddHelps()
+    .AddHelpAccounts();
+
+var payItForwardAssemblies = AppDomain.CurrentDomain
+    .GetAssemblies()
+    .Where(x => x.FullName?.StartsWith("PayItForward") ?? false)
+    .ToArray();
+
+builder.Services.AddCqrs(payItForwardAssemblies);
 
 var app = builder.Build();
 
@@ -26,6 +28,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.AddRequestsForHelpController();
+app.UseHelps();
 
 app.Run();
