@@ -11,7 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Helps\PayItForward.Helps.Api\PayItForward.Helps.Api.csproj" />
+      <ProjectReference Include="..\..\Helps\PayItForward.Helps.Api\PayItForward.Helps.Api.csproj" />
     </ItemGroup>
 
 </Project>
