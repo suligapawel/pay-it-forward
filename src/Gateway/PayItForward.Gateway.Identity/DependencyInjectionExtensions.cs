@@ -21,7 +21,7 @@ internal static class DependencyInjectionExtensions
             .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddScoped<ITokenService, JwtToken>()
             .AddScoped<IUserService, UserService>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, InMemoryUserRepository>();
     }
 
     private static IServiceCollection AddAuth(this IServiceCollection services, IdentitySettings identitySettings)
