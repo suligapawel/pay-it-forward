@@ -2,7 +2,6 @@ namespace PayItForward.Gateway.Identity.Models;
 
 internal sealed class Token
 {
-    public Guid Id { get; init; }
     public string Value { get; init; }
     public DateTime ExpiresIn { get; init; }
 }

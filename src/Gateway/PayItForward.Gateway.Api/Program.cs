@@ -1,15 +1,27 @@
+using Microsoft.OpenApi.Models;
+using PayItForward.Gateway.Api.Extensions;
+using PayItForward.Gateway.Identity;
 using PayItForward.HelpAccounts.Core;
 using PayItForward.Helps.Api;
 using PayItForward.Shared.CQRS;
+using PayItForward.Shared.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options
+        .AddSwaggerAuth()
+        .SwaggerDoc("v1", new OpenApiInfo { Title = "Pay it forward API", Version = "v1" });
+});
 
 builder.Services
+    .AddOwnIdentity(builder.Configuration)
     .AddHelps()
-    .AddHelpAccounts();
+    .AddHelpAccounts()
+    .AddSharedImplementations();
 
 var payItForwardAssemblies = AppDomain.CurrentDomain
     .GetAssemblies()
@@ -28,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseUsers();
 app.UseHelps();
 
 app.Run();

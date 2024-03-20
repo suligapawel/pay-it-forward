@@ -1,0 +1,37 @@
+@host = https://localhost:5001
+@email = "some_email@email.com"
+@password = "v3ry_$trong_password"
+
+POST {{host}}/sign-up/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": {{email}},
+  "password": {{password}}
+}
+###
+
+# @name signIn
+POST {{host}}/sign-in/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": {{email}},
+  "password": {{password}}
+}
+
+> {%
+    client.global.set("refresh_token", response.body.refreshToken.value);
+%}
+###
+
+POST {{host}}/refresh/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "token": "{{refresh_token}}"
+}
+###

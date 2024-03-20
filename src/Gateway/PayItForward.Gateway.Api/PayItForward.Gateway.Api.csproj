@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Helps\PayItForward.Helps.Api\PayItForward.Helps.Api.csproj" />
+      <ProjectReference Include="..\PayItForward.Gateway.Identity\PayItForward.Gateway.Identity.csproj" />
     </ItemGroup>
 
 </Project>

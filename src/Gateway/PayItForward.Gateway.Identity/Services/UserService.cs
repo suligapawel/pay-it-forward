@@ -40,6 +40,7 @@ internal sealed class UserService : IUserService
         };
 
         await _users.Register(user, cancellationToken);
+        // TODO: Publish event and consume it in help account project for create account 
 
         return user.Id;
     }
@@ -60,12 +61,13 @@ internal sealed class UserService : IUserService
 
         var refreshToken = _tokenService.GenerateToken(new TokenPayload(user), TokenType.Refresh);
 
+        user.AddToken(refreshToken);
         await _users.AddToken(user.Id, refreshToken, cancellationToken);
 
         return CreateNewTokens(user, refreshToken);
     }
 
-
+    // TODO: Add tests
     public async Task<Tokens> Refresh(OldToken oldRefreshToken, CancellationToken cancellationToken)
     {
         var isValid = _tokenService.ValidToken(oldRefreshToken.Value, TokenType.Refresh);
@@ -91,6 +93,8 @@ internal sealed class UserService : IUserService
 
         var newRefreshToken = _tokenService.GenerateToken(new TokenPayload(user), TokenType.Refresh);
 
+        // TODO: Change it
+        user.RefreshToken(new Token { Value = oldRefreshToken.Value }, newRefreshToken);
         await _users.RefreshToken(user.Id, oldRefreshToken, newRefreshToken, cancellationToken);
 
         return CreateNewTokens(user, newRefreshToken);

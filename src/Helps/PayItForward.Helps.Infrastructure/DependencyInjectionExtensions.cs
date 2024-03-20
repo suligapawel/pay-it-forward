@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
 using PayItForward.Helps.Domain.Repositories;

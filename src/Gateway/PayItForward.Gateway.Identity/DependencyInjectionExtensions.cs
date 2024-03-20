@@ -1,11 +1,16 @@
+using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using PayItForward.Gateway.Identity.API.Controllers;
 using PayItForward.Gateway.Identity.Repositories;
 using PayItForward.Gateway.Identity.Services;
 using PayItForward.Gateway.Identity.Services.Abstraction;
 using PayItForward.Gateway.Identity.Settings;
+
+[assembly: InternalsVisibleTo("PayItForward.Gateway.Api")]
 
 namespace PayItForward.Gateway.Identity;
 
@@ -52,5 +57,15 @@ internal static class DependencyInjectionExtensions
         services.AddAuthorization();
 
         return services;
+    }
+
+    public static IApplicationBuilder UseUsers(this WebApplication app)
+    {
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
+        app.AddUsersController();
+        
+        return app;
     }
 }

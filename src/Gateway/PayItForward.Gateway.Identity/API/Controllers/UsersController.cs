@@ -13,7 +13,7 @@ internal static class UsersController
 {
     private const string Endpoint = "users";
 
-    internal static IApplicationBuilder AddRequestsForHelpController(this WebApplication app)
+    internal static IApplicationBuilder AddUsersController(this WebApplication app)
     {
         app
             .SignUp()
@@ -46,7 +46,8 @@ internal static class UsersController
                 [FromServices] IUserService userService,
                 [FromBody] SignIn request) =>
             {
-                await userService.SignIn(request.Email, request.Password, CancellationToken.None); // TODO: ICancellationTokenProvider
+                var tokens = await userService.SignIn(request.Email, request.Password, CancellationToken.None); // TODO: ICancellationTokenProvider
+                return Results.Ok(tokens);
             })
             .AddEndpointFilter<RequestValidatorFilter>()
             .WithTags("Users")
@@ -62,7 +63,8 @@ internal static class UsersController
                 [FromServices] IUserService userService,
                 [FromBody] Refresh request) =>
             {
-                await userService.Refresh(new OldToken(request.Token), CancellationToken.None); // TODO: ICancellationTokenProvider
+                var tokens = await userService.Refresh(new OldToken(request.Token), CancellationToken.None); // TODO: ICancellationTokenProvider
+                return Results.Ok(tokens);
             })
             .AddEndpointFilter<RequestValidatorFilter>()
             .WithTags("Users")

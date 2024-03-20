@@ -9,7 +9,7 @@ internal class AccessToken : IToken
     {
         return new Dictionary<string, object>
         {
-            { ClaimTypes.NameIdentifier, payload.User.Id },
+            { ClaimTypes.NameIdentifier, payload.User.Id.ToString() },
             { ClaimTypes.Email, payload.User.Email },
             { ClaimTypes.Name, payload.User.Name },
             { ClaimTypes.Role, payload.User.Roles }

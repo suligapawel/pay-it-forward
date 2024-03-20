@@ -12,7 +12,7 @@ internal class RefreshToken : IToken
 
         return new Dictionary<string, object>
         {
-            { ClaimTypes.NameIdentifier, tokenPayload.User.Id }
+            { ClaimTypes.NameIdentifier, tokenPayload.User.Id.ToString() }
         };
     }
 
