@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Helps.Api.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Shared.Requests", "src\Shared\PayItForward.Shared.Requests\PayItForward.Shared.Requests.csproj", "{803F4E3C-B22F-41E4-9016-A22C167DDF37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Gateway.Api", "src\PayItForward.Gateway.Api\PayItForward.Gateway.Api.csproj", "{BD1331FA-2EB3-42EE-982D-D3CCE7A15F32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Gateway.Api", "src\Gateway\PayItForward.Gateway.Api\PayItForward.Gateway.Api.csproj", "{BD1331FA-2EB3-42EE-982D-D3CCE7A15F32}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{37285B88-C90A-4670-88DB-9FAC8EA474CE}"
 EndProject
