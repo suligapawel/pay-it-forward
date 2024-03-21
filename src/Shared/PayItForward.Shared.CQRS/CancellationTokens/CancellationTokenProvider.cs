@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace PayItForward.Shared.CQRS.CancellationTokens;
 
-public class CancellationTokenProvider : ICancellationTokenProvider
+internal sealed class CancellationTokenProvider : ICancellationTokenProvider
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\PayItForward.Shared.CQRS\PayItForward.Shared.CQRS.csproj" />
     <ProjectReference Include="..\..\Shared\PayItForward.Shared.Implementations\PayItForward.Shared.Implementations.csproj" />
     <ProjectReference Include="..\PayItForward.HelpAccounts.Shared\PayItForward.HelpAccounts.Shared.csproj" />
   </ItemGroup>

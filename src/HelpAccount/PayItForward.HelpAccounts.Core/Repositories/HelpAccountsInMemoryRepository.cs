@@ -9,14 +9,14 @@ public class HelpAccountsInMemoryRepository : IHelpAccountsRepository
     private static readonly Dictionary<Guid, HelpAccount> HelpAccounts =
         new() { { AccountOwnerId, new HelpAccount(AccountOwnerId, 0) } };
 
-    public Task<HelpAccount> Get(Guid accountOwnerId)
+    public Task<HelpAccount> Get(Guid accountOwnerId, CancellationToken cancellationToken)
         => Task.FromResult(HelpAccounts.GetValueOrDefault(accountOwnerId));
 
-    public Task Insert(HelpAccount helpAccount)
+    public Task Insert(HelpAccount helpAccount, CancellationToken cancellationToken)
     {
         HelpAccounts.Add(helpAccount.AccountOwner, helpAccount);
         return Task.CompletedTask;
     }
 
-    public Task Update(HelpAccount helpAccount) => Task.CompletedTask;
+    public Task Update(HelpAccount helpAccount, CancellationToken cancellationToken) => Task.CompletedTask;
 }

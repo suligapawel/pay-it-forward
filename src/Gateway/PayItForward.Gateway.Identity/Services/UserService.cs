@@ -1,8 +1,10 @@
 using System.Text;
+using PayItForward.Gateway.Identity.Events;
 using PayItForward.Gateway.Identity.Exceptions;
 using PayItForward.Gateway.Identity.Models;
 using PayItForward.Gateway.Identity.Repositories;
 using PayItForward.Gateway.Identity.Services.Abstraction;
+using PayItForward.Shared.CQRS.Events.Abstractions;
 
 namespace PayItForward.Gateway.Identity.Services;
 
@@ -11,15 +13,18 @@ internal sealed class UserService : IUserService
     private readonly IUserRepository _users;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
+    private readonly IEventDispatcher _eventDispatcher;
 
     public UserService(
         IUserRepository users,
         IPasswordHasher passwordHasher,
-        ITokenService tokenService)
+        ITokenService tokenService,
+        IEventDispatcher eventDispatcher)
     {
         _users = users;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
+        _eventDispatcher = eventDispatcher;
     }
 
     public async Task<Guid> SignUp(string email, string password, CancellationToken cancellationToken)
@@ -40,7 +45,7 @@ internal sealed class UserService : IUserService
         };
 
         await _users.Register(user, cancellationToken);
-        // TODO: Publish event and consume it in help account project for create account 
+        await _eventDispatcher.Publish(new UserCreated(user.Id));
 
         return user.Id;
     }

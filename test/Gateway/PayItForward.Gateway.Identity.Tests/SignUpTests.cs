@@ -21,7 +21,7 @@ internal sealed class SignUpTests
 
         _users = new UsersForTestsRepository();
         _cancellationToken = CancellationToken.None;
-        _service = new UserService(_users, passwordHasher, tokenService);
+        _service = new UserService(_users, passwordHasher, tokenService, new EventDispatcherForTests());
     }
 
     [Test]

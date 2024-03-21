@@ -24,7 +24,7 @@ internal sealed class SignInTests
 
         _users = new UsersForTestsRepository();
         _cancellationToken = CancellationToken.None;
-        _service = new UserService(_users, passwordHasher, tokenService);
+        _service = new UserService(_users, passwordHasher, tokenService, new EventDispatcherForTests());
     }
 
     [Test]
@@ -66,7 +66,7 @@ internal sealed class SignInTests
         var user = await _users.Get(email, _cancellationToken);
         typeof(User)
             .GetProperty(nameof(User.Salt))
-            ?.SetValue(user, Encoding.UTF8.GetBytes("Wrong_salt"));    
+            ?.SetValue(user, Encoding.UTF8.GetBytes("Wrong_salt"));
 
         Assert.ThrowsAsync<BadCredentialsException>(() => _service.SignIn(email, password, _cancellationToken));
     }
