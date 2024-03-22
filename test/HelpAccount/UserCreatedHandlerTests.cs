@@ -27,4 +27,16 @@ public class UserCreatedHandlerTests
         Assert.That(helpAccount, Is.Not.Null);
         Assert.That(helpAccount.AccountOwner, Is.EqualTo(@event.UserId));
     }
+
+    [Test]
+    public async Task Should_not_create_help_account_when_user_was_created()
+    {
+        var @event = new UserCreated(HelpAccountsForTestsRepository.AccountOwnerId);
+
+        await _handler.Handle(@event, _cancellationToken);
+
+        var helpAccount = await _repository.Get(@event.UserId, _cancellationToken);
+        Assert.That(helpAccount, Is.Not.Null);
+        Assert.That(helpAccount.AccountOwner, Is.EqualTo(@event.UserId));
+    }
 }

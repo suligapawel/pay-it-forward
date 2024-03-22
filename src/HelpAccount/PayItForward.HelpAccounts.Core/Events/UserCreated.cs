@@ -17,6 +17,12 @@ public class UserCreatedHandler : IEventHandler<UserCreated>
 
     public async Task Handle(UserCreated @event, CancellationToken cancellationToken)
     {
+        var helpAccount = await _helpAccounts.Get(@event.UserId, cancellationToken);
+        if (helpAccount is not null)
+        {
+            return;
+        }
+
         await _helpAccounts.Insert(new HelpAccount(@event.UserId, 0), cancellationToken);
     }
 }

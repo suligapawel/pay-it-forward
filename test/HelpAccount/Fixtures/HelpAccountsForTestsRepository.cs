@@ -5,7 +5,7 @@ namespace PayItForward.Debts.Core.Tests.Fixtures;
 
 public class HelpAccountsForTestsRepository : IHelpAccountsRepository
 {
-    private static readonly Guid AccountOwnerId = Guid.Parse("566d3130-7986-4fcd-9fba-b675e38bf478");
+    public static readonly Guid AccountOwnerId = Guid.Parse("566d3130-7986-4fcd-9fba-b675e38bf478");
 
     private readonly Dictionary<Guid, HelpAccount> _helpAccounts =
         new() { { AccountOwnerId, new HelpAccount(AccountOwnerId, 0) } };
