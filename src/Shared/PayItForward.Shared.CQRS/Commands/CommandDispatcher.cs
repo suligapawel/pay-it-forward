@@ -1,7 +1,7 @@
 using PayItForward.Shared.CQRS.CancellationTokens;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
 
-namespace PayItForward.Shared.CQRS.Commands.Implementations;
+namespace PayItForward.Shared.CQRS.Commands;
 
 internal class CommandDispatcher : ICommandDispatcher
 {

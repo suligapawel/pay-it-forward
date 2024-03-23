@@ -8,6 +8,6 @@ public class CommandWithHandlerHandler : ICommandHandler<CommandWithHandler>
 {
     public Task Handle(CommandWithHandler command, CancellationToken cancellationToken)
     {
-        throw new CommandHandlerWasExecuted();
+        throw new HandlerWasExecuted();
     }
 }

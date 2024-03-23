@@ -23,7 +23,7 @@ public class CommandDispatcherTests
     public void Should_execute_command_handler()
     {
         // It's weird but works
-        Assert.ThrowsAsync<CommandHandlerWasExecuted>(() => _dispatcher.Execute(new CommandWithHandler()));
+        Assert.ThrowsAsync<HandlerWasExecuted>(() => _dispatcher.Execute(new CommandWithHandler()));
     }
     
     [Test]
