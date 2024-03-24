@@ -14,8 +14,8 @@ internal static class DebtsController
     internal static IApplicationBuilder AddDebtsController(this WebApplication app)
     {
         app
-            .GetByAccountOwnerId();
-            // .GetByCurrentUser();
+            .GetByAccountOwnerId()
+            .GetByCurrentUser();
 
         return app;
     }
@@ -25,20 +25,22 @@ internal static class DebtsController
         app.MapGet("help-accounts/{accountOwnerId:Guid}/debts", async
                 ([FromServices] IHelpAccountService service, Guid accountOwnerId)
                 => TypedResults.Ok(await service.GetDebt(accountOwnerId)))
+            .RequireAuthorization()
             .WithTags("Debts")
             .WithOpenApi();
 
         return app;
     }
 
-    // private static IEndpointRouteBuilder GetByCurrentUser(this IEndpointRouteBuilder app)
-    // {
-    //     app.MapGet("help-accounts/debts", async
-    //             ([FromServices] IHelpAccountService service, [FromServices] ICurrentUser currentUser)
-    //             => TypedResults.Ok(await service.GetDebt(currentUser.Id)))
-    //         .WithTags("Debts")
-    //         .WithOpenApi();
-    //
-    //     return app;
-    // }
+    private static IEndpointRouteBuilder GetByCurrentUser(this IEndpointRouteBuilder app)
+    {
+        app.MapGet("help-accounts/debts", async
+                ([FromServices] IHelpAccountService service, [FromServices] ICurrentUser currentUser)
+                => TypedResults.Ok(await service.GetDebt(currentUser.Id)))
+            .RequireAuthorization()
+            .WithTags("Debts")
+            .WithOpenApi();
+    
+        return app;
+    }
 }

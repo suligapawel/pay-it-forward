@@ -9,5 +9,7 @@ namespace PayItForward.Shared.Implementations;
 internal static class DependencyInjectionExtensions
 {
     public static IServiceCollection AddSharedImplementations(this IServiceCollection services)
-        => services.AddSingleton<IClock, Clock>();
+        => services
+            .AddSingleton<IClock, Clock>()
+            .AddScoped<ICurrentUser, CurrentUser>();
 }

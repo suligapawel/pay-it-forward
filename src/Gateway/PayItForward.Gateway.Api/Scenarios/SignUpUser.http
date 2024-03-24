@@ -23,8 +23,15 @@ Content-Type: application/json
 }
 
 > {%
+    client.global.set("access_token", response.body.accessToken.value);
     client.global.set("refresh_token", response.body.refreshToken.value);
 %}
+###
+
+GET {{host}}/help-accounts/debts/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
 ###
 
 POST {{host}}/refresh/

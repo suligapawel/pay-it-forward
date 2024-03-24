@@ -9,6 +9,7 @@ using PayItForward.Gateway.Identity.Repositories;
 using PayItForward.Gateway.Identity.Services;
 using PayItForward.Gateway.Identity.Services.Abstraction;
 using PayItForward.Gateway.Identity.Settings;
+using PayItForward.Shared.Implementations;
 
 [assembly: InternalsVisibleTo("PayItForward.Gateway.Api")]
 
@@ -63,9 +64,21 @@ internal static class DependencyInjectionExtensions
     {
         app.UseAuthentication();
         app.UseAuthorization();
-        
+        app.Use(async (context, next) =>
+        {
+            var currentUser = context.RequestServices.GetService<ICurrentUser>();
+            var user = context.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                currentUser.Initialize((Guid.Parse(user.FindFirst("nameid").Value)));
+            }
+
+            await next();
+        });
+
         app.AddUsersController();
-        
+
         return app;
     }
 }
