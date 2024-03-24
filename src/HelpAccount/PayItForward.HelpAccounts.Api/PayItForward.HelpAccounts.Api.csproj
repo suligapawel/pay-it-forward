@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\..\Shared\PayItForward.Shared.Requests\PayItForward.Shared.Requests.csproj"/>
+        <ProjectReference Include="..\PayItForward.HelpAccounts.Core\PayItForward.HelpAccounts.Core.csproj" />
+    </ItemGroup>
+</Project>

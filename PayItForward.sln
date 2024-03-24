@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{77D7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.Gateway.Identity.Tests", "test\Gateway\PayItForward.Gateway.Identity.Tests\PayItForward.Gateway.Identity.Tests.csproj", "{B1DE4F90-272B-46E0-9F0D-21C3555855EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayItForward.HelpAccounts.Api", "src\HelpAccount\PayItForward.HelpAccounts.Api\PayItForward.HelpAccounts.Api.csproj", "{43F3892B-E821-466A-B866-3C1EA569D54C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +148,10 @@ Global
 		{B1DE4F90-272B-46E0-9F0D-21C3555855EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1DE4F90-272B-46E0-9F0D-21C3555855EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1DE4F90-272B-46E0-9F0D-21C3555855EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43F3892B-E821-466A-B866-3C1EA569D54C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F3892B-E821-466A-B866-3C1EA569D54C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F3892B-E821-466A-B866-3C1EA569D54C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F3892B-E821-466A-B866-3C1EA569D54C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{340E9A42-FDE7-4FAA-ADAE-533ED7381836} = {04773272-5CE6-44FB-9F0E-FE947C5DD7D2}
@@ -175,5 +181,6 @@ Global
 		{F0E326D7-61CF-4D13-B20B-9752DE6A7125} = {37285B88-C90A-4670-88DB-9FAC8EA474CE}
 		{77D79F71-6193-44CA-810B-D3FAD11ECA19} = {5792C35D-9383-4257-8D62-8F29EA0B3E1C}
 		{B1DE4F90-272B-46E0-9F0D-21C3555855EE} = {77D79F71-6193-44CA-810B-D3FAD11ECA19}
+		{43F3892B-E821-466A-B866-3C1EA569D54C} = {241BC1EF-6668-40DE-836A-4386282D3B99}
 	EndGlobalSection
 EndGlobal

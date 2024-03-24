@@ -1,7 +1,7 @@
 using Microsoft.OpenApi.Models;
 using PayItForward.Gateway.Api.Extensions;
 using PayItForward.Gateway.Identity;
-using PayItForward.HelpAccounts.Core;
+using PayItForward.HelpAccounts.Api;
 using PayItForward.Helps.Api;
 using PayItForward.Shared.CQRS;
 using PayItForward.Shared.Implementations;
@@ -42,5 +42,6 @@ app.UseHttpsRedirection();
 
 app.UseUsers();
 app.UseHelps();
+app.UseHelpAccounts();
 
 app.Run();

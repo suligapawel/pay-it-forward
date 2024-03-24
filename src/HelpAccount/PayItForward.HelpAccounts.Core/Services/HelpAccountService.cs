@@ -20,11 +20,7 @@ internal sealed class HelpAccountService : IHelpAccountService, IHelpAccountProx
     public async Task IncurDebt(Guid accountOwnerId)
     {
         var cancellationToken = _cancellationTokenProvider.CreateToken();
-        var helpAccount = await _helpAccounts.Get(accountOwnerId, cancellationToken);
-        if (helpAccount is null)
-        {
-            throw new NotFound(typeof(HelpAccount), accountOwnerId);
-        }
+        var helpAccount = await GetHelpAccount(accountOwnerId, cancellationToken);
 
         helpAccount.Incur();
 
@@ -34,13 +30,8 @@ internal sealed class HelpAccountService : IHelpAccountService, IHelpAccountProx
     public async Task PayOffDebt(Guid accountOwnerId)
     {
         var cancellationToken = _cancellationTokenProvider.CreateToken();
-
-        var helpAccount = await _helpAccounts.Get(accountOwnerId, cancellationToken);
-        if (helpAccount is null)
-        {
-            throw new NotFound(typeof(HelpAccount), accountOwnerId);
-        }
-
+        var helpAccount = await GetHelpAccount(accountOwnerId, cancellationToken);
+        
         helpAccount.PayOff();
 
         await _helpAccounts.Update(helpAccount, cancellationToken);
@@ -50,12 +41,28 @@ internal sealed class HelpAccountService : IHelpAccountService, IHelpAccountProx
     {
         var cancellationToken = _cancellationTokenProvider.CreateToken();
 
+        var helpAccount = await GetHelpAccount(accountOwnerId, cancellationToken);
+
+        return helpAccount.CanIncurTheDebt();
+    }
+
+    public async Task<int> GetDebt(Guid accountOwnerId)
+    {
+        var cancellationToken = _cancellationTokenProvider.CreateToken();
+
+        var helpAccount = await GetHelpAccount(accountOwnerId, cancellationToken);
+
+        return helpAccount.Value;
+    }
+
+    private async Task<HelpAccount> GetHelpAccount(Guid accountOwnerId, CancellationToken cancellationToken)
+    {
         var helpAccount = await _helpAccounts.Get(accountOwnerId, cancellationToken);
         if (helpAccount is null)
         {
             throw new NotFound(typeof(HelpAccount), accountOwnerId);
         }
 
-        return helpAccount.CanIncurTheDebt();
+        return helpAccount;
     }
 }
