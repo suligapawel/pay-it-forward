@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using PayItForward.Helps.Api.Requests;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
+using PayItForward.Shared.Implementations;
 using PayItForward.Shared.Requests;
 
 namespace PayItForward.Helps.Api.Controllers;
@@ -23,10 +24,10 @@ internal static class RequestsForHelpController
         => app.MapPost("/requests-for-help", async
             (
                 [FromServices] ICommandDispatcher dispatcher,
+                [FromServices] ICurrentUser currentUser,
                 [FromBody] CreateRequestForHelp createRequestForHelp) =>
             {
-                // TODO: ICurrentUserService
-                var command = CreateRequestForHelp.AsCommand(Guid.NewGuid());
+                var command = CreateRequestForHelp.AsCommand(currentUser.Id);
                 await dispatcher.Execute(command);
 
                 return TypedResults.Ok(command.AggregateId);
