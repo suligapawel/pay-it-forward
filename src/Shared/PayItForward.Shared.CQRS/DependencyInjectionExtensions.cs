@@ -1,7 +1,6 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using PayItForward.Shared.CQRS.CancellationTokens;
 using PayItForward.Shared.CQRS.Commands;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
 using PayItForward.Shared.CQRS.Events;
@@ -16,7 +15,6 @@ public static class DependencyInjectionExtensions
     public static IServiceCollection AddCqrs(this IServiceCollection services, params Assembly[] assemblies)
         => services
             .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-            .AddSingleton<ICancellationTokenProvider, CancellationTokenProvider>()
             .AddCommands(assemblies)
             .AddQueries(assemblies)
             .AddEvents(assemblies);

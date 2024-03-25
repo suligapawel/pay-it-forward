@@ -6,7 +6,7 @@ namespace PayItForward.Helps.Api.Requests;
 
 internal sealed record CreateRequestForHelp(string Description) : IRequest
 {
-    public static CreateRequestForHelpCommand AsCommand(Guid userId) => new(new Needy(userId));
+    public CreateRequestForHelpCommand AsCommand(Guid userId) => new(new Needy(userId), Description);
 
     public string Error { get; } = "Description is not valid";
 

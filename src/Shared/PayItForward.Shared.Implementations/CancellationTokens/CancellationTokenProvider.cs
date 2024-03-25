@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace PayItForward.Shared.CQRS.CancellationTokens;
+namespace PayItForward.Shared.Implementations.CancellationTokens;
 
 internal sealed class CancellationTokenProvider : ICancellationTokenProvider
 {

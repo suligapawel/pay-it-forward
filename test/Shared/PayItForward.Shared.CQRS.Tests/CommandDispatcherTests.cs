@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
 using PayItForward.Shared.CQRS.Tests.Fixtures;
 using PayItForward.Shared.CQRS.Tests.Fixtures.Commands;
+using PayItForward.Shared.Implementations.CancellationTokens;
 
 namespace PayItForward.Shared.CQRS.Tests;
 
@@ -13,7 +14,9 @@ public class CommandDispatcherTests
     public void Setup()
     {
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddCqrs(GetType().Assembly);
+        serviceCollection
+            .AddCqrs(GetType().Assembly)
+            .AddSingleton<ICancellationTokenProvider, CancellationTokenProviderForTests>();
         var serviceProvider = serviceCollection.BuildServiceProvider();
 
         _dispatcher = serviceProvider.GetService<ICommandDispatcher>();
@@ -25,7 +28,7 @@ public class CommandDispatcherTests
         // It's weird but works
         Assert.ThrowsAsync<HandlerWasExecuted>(() => _dispatcher.Execute(new CommandWithHandler()));
     }
-    
+
     [Test]
     public void Should_throw_not_supported_exception_when_command_does_not_have_handler()
     {

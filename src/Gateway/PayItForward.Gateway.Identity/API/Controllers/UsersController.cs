@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Routing;
 using PayItForward.Gateway.Identity.API.Requests;
 using PayItForward.Gateway.Identity.Models;
 using PayItForward.Gateway.Identity.Services.Abstraction;
+using PayItForward.Shared.Implementations.CancellationTokens;
 using PayItForward.Shared.Requests;
 
 namespace PayItForward.Gateway.Identity.API.Controllers;
@@ -28,9 +29,10 @@ internal static class UsersController
         app.MapPost("/sign-up", async
             (
                 [FromServices] IUserService userService,
+                [FromServices] ICancellationTokenProvider cancellationToken,
                 [FromBody] SignUp request) =>
             {
-                await userService.SignUp(request.Email, request.Password, CancellationToken.None); // TODO: ICancellationTokenProvider
+                await userService.SignUp(request.Email, request.Password, cancellationToken.CreateToken());
             })
             .AddEndpointFilter<RequestValidatorFilter>()
             .WithTags("Users")
@@ -44,9 +46,10 @@ internal static class UsersController
         app.MapPost("/sign-in", async
             (
                 [FromServices] IUserService userService,
+                [FromServices] ICancellationTokenProvider cancellationToken,
                 [FromBody] SignIn request) =>
             {
-                var tokens = await userService.SignIn(request.Email, request.Password, CancellationToken.None); // TODO: ICancellationTokenProvider
+                var tokens = await userService.SignIn(request.Email, request.Password, cancellationToken.CreateToken());
                 return Results.Ok(tokens);
             })
             .AddEndpointFilter<RequestValidatorFilter>()
@@ -61,9 +64,10 @@ internal static class UsersController
         app.MapPost("/refresh", async
             (
                 [FromServices] IUserService userService,
+                [FromServices] ICancellationTokenProvider cancellationToken,
                 [FromBody] Refresh request) =>
             {
-                var tokens = await userService.Refresh(new OldToken(request.Token), CancellationToken.None); // TODO: ICancellationTokenProvider
+                var tokens = await userService.Refresh(new OldToken(request.Token), cancellationToken.CreateToken());
                 return Results.Ok(tokens);
             })
             .AddEndpointFilter<RequestValidatorFilter>()

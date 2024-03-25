@@ -1,5 +1,5 @@
-using PayItForward.Shared.CQRS.CancellationTokens;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
+using PayItForward.Shared.Implementations.CancellationTokens;
 
 namespace PayItForward.Shared.CQRS.Commands;
 

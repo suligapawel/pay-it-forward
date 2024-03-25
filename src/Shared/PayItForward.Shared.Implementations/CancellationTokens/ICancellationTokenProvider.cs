@@ -1,4 +1,4 @@
-namespace PayItForward.Shared.CQRS.CancellationTokens;
+namespace PayItForward.Shared.Implementations.CancellationTokens;
 
 public interface ICancellationTokenProvider
 {

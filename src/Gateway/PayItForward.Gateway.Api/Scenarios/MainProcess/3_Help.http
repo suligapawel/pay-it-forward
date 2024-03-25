@@ -1,0 +1,20 @@
+POST {{host}}/requests-for-help
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{needy_access_token}}
+
+{
+  "description": "I just noticed one of my tires is flat. I'm happy to change it myself, but I'm missing wrench. Does anyone have one I could borrow to get back on the road?"
+}
+
+> {%
+    client.global.set("request_for_help_id", response.body);
+%}
+###
+
+GET {{host}}/requests-for-help/{{request_for_help_id}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{needy_access_token}}
+
+###

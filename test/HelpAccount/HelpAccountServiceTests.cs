@@ -2,7 +2,6 @@ using PayItForward.Debts.Core.Tests.Fixtures;
 using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
 using PayItForward.HelpAccounts.Core.Services;
-using PayItForward.Shared.CQRS.CancellationTokens;
 
 namespace PayItForward.Debts.Core.Tests;
 

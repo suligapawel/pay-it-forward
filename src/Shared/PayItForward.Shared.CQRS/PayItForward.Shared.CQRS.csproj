@@ -19,4 +19,8 @@
         </AssemblyAttribute>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PayItForward.Shared.Implementations\PayItForward.Shared.Implementations.csproj" />
+    </ItemGroup>
+
 </Project>

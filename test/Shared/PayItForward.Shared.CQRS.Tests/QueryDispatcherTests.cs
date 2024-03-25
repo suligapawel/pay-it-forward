@@ -1,10 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using PayItForward.Shared.CQRS.CancellationTokens;
-using PayItForward.Shared.CQRS.Queries;
 using PayItForward.Shared.CQRS.Queries.Abstractions;
 using PayItForward.Shared.CQRS.Tests.Fixtures;
-using PayItForward.Shared.CQRS.Tests.Fixtures.Commands;
 using PayItForward.Shared.CQRS.Tests.Fixtures.Queries;
+using PayItForward.Shared.Implementations.CancellationTokens;
 
 namespace PayItForward.Shared.CQRS.Tests;
 
@@ -16,7 +14,9 @@ public class QueryDispatcherTests
     public void Setup()
     {
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddCqrs(GetType().Assembly);
+        serviceCollection
+            .AddCqrs(GetType().Assembly)
+            .AddSingleton<ICancellationTokenProvider, CancellationTokenProviderForTests>();
         var serviceProvider = serviceCollection.BuildServiceProvider();
 
         _dispatcher = serviceProvider.GetService<IQueryDispatcher>();

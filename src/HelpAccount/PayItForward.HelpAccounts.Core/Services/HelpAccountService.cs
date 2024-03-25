@@ -2,7 +2,7 @@ using PayItForward.HelpAccounts.Core.Entities;
 using PayItForward.HelpAccounts.Core.Exceptions;
 using PayItForward.HelpAccounts.Core.Repositories;
 using PayItForward.HelpAccounts.Shared;
-using PayItForward.Shared.CQRS.CancellationTokens;
+using PayItForward.Shared.Implementations.CancellationTokens;
 
 namespace PayItForward.HelpAccounts.Core.Services;
 

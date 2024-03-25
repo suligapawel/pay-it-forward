@@ -20,14 +20,14 @@ public class CreateRequestForHelpTests
         _cancellationToken = CancellationToken.None;
         _repo = new FakeRequestForHelpRepository();
         _helpAccountProxy = new FakeHelpAccountProxy();
-        _handler = new CreateRequestForHelpHandler(_repo, _helpAccountProxy);
+        _handler = new CreateRequestForHelpHandler(_repo, _helpAccountProxy, new FakeRequestForHelpViewModelRepository());
     }
 
     [Test]
     public async Task Should_create_request_for_help()
     {
         var needy = new Needy(Guid.Parse("a0c37b93-c47f-49f7-ba27-905b6ccba4f7"));
-        var command = new CreateRequestForHelp(needy);
+        var command = new CreateRequestForHelp(needy, string.Empty);
 
         await _handler.Handle(command, CancellationToken.None);
 
@@ -39,7 +39,7 @@ public class CreateRequestForHelpTests
     public void Should_not_create_request_for_help_when_needy_has_debt()
     {
         var needy = new Needy(Guid.Parse("a0c37b93-c47f-49f7-ba27-905b6ccba4f7"));
-        var command = new CreateRequestForHelp(needy);
+        var command = new CreateRequestForHelp(needy, string.Empty);
         _helpAccountProxy.SetCanIncurDebt(false);
 
         Assert.ThrowsAsync<TheNeedyCannotIncurDebt>(() => _handler.Handle(command, CancellationToken.None));

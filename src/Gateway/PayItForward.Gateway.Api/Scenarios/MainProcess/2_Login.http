@@ -1,0 +1,27 @@
+POST {{host}}/sign-in/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{needy_email}}",
+  "password": "{{password}}"
+}
+
+> {%
+    client.global.set("needy_access_token", response.body.accessToken.value);
+%}
+###
+
+POST {{host}}/sign-in/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{helper_email}}",
+  "password": "{{password}}"
+}
+
+> {%
+    client.global.set("helper_access_token", response.body.accessToken.value);
+%}
+###

@@ -1,6 +1,6 @@
 using PayItForward.Shared.Implementations.CancellationTokens;
 
-namespace PayItForward.Debts.Core.Tests.Fixtures;
+namespace PayItForward.Shared.CQRS.Tests.Fixtures;
 
 public class CancellationTokenProviderForTests : ICancellationTokenProvider
 {
