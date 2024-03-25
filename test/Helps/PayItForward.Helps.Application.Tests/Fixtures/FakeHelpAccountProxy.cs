@@ -6,7 +6,7 @@ public class FakeHelpAccountProxy : IHelpAccountProxy
 {
     private bool _canIncurDebt = true;
 
-    public Task IncurDebt(Guid accountOwnerId) => throw new NotImplementedException();
+    public Task IncurDebt(Guid accountOwnerId) => Task.CompletedTask;
 
     public Task PayOffDebt(Guid accountOwnerId) => throw new NotImplementedException();
 
