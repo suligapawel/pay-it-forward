@@ -1,3 +1,4 @@
+using PayItForward.Helps.Application.Exceptions;
 using PayItForward.Helps.Domain.Repositories;
 using PayItForward.Helps.Domain.ValueObjects;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
@@ -19,6 +20,11 @@ internal sealed class ExpressInterestHandler : ICommandHandler<ExpressInterest>
     {
         var requestForHelp = await _requestsForHelp.Get(command.RequestForHelpId, cancellationToken);
 
+        if (requestForHelp is null)
+        {
+            throw new RequestForHelpDoesNotExist(command.RequestForHelpId);
+        }
+        
         requestForHelp.ExpressInterest(command.PotentialHelper);
 
         await _requestsForHelp.Update(requestForHelp, cancellationToken);
