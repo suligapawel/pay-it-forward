@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using PayItForward.Helps.Api.Requests;
+using PayItForward.Helps.Domain.ValueObjects;
 using PayItForward.Shared.CQRS.Commands.Abstractions;
 using PayItForward.Shared.Implementations;
 using PayItForward.Shared.Requests;
+using ExpressInterest = PayItForward.Helps.Application.Commands.ExpressInterest;
 
 namespace PayItForward.Helps.Api.Controllers;
 
@@ -25,10 +27,9 @@ internal static class InterestInRequestForHelpController
             (
                 [FromServices] ICommandDispatcher dispatcher,
                 [FromServices] ICurrentUser currentUser,
-                [FromBody] ExpressInterest request,
                 Guid id) =>
             {
-                var command = request.AsCommand(id, currentUser.Id);
+                var command = new ExpressInterest(new RequestForHelpId(id), new PotentialHelper(currentUser.Id));
                 await dispatcher.Execute(command);
 
                 return TypedResults.Ok(id);
