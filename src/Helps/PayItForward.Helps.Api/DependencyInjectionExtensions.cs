@@ -11,10 +11,15 @@ namespace PayItForward.Helps.Api;
 
 internal static class DependencyInjectionExtensions
 {
-    public static IServiceCollection AddHelps(this IServiceCollection services) => services 
+    public static IServiceCollection AddHelps(this IServiceCollection services) => services
         .AddApplication()
         .AddInfrastructure();
 
     public static IApplicationBuilder UseHelps(this WebApplication app)
-        => app.AddRequestsForHelpController();
+    {
+        app.AddRequestsForHelpController();
+        app.AddInterestInRequestForHelpController();
+
+        return app;
+    }
 }
