@@ -17,7 +17,7 @@ public class ExpressInterestHandlerTests
     {
         _cancellationToken = CancellationToken.None;
         _repo = new FakeRequestForHelpRepository();
-        _handler = new ExpressInterestHandler(_repo);
+        _handler = new ExpressInterestHandler(_repo, new FakeRequestForHelpViewModelRepository(), new UserNameProxyForTests());
     }
 
     [Test]

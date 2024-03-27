@@ -29,7 +29,7 @@ internal sealed class SignUpTests
     {
         const string email = "something@test.com";
 
-        await _service.SignUp(email, "fake_password11", _cancellationToken);
+        await _service.SignUp(email, "name", "fake_password11", _cancellationToken);
 
         var user = await _users.Get(email, _cancellationToken);
         Assert.That(user.Email, Is.EqualTo(email));
@@ -41,8 +41,8 @@ internal sealed class SignUpTests
         const string email = "something_1@test.com";
         const string password = "fake_password11";
 
-        await _service.SignUp(email, password, _cancellationToken);
+        await _service.SignUp(email, "name", password, _cancellationToken);
 
-        Assert.ThrowsAsync<UserAlreadyExistsException>(() => _service.SignUp(email, password, _cancellationToken));
+        Assert.ThrowsAsync<UserAlreadyExistsException>(() => _service.SignUp(email, "name", password, _cancellationToken));
     }
 }

@@ -18,4 +18,13 @@ internal class InMemoryRequestForHelpsViewModelRepository : IRequestForHelpsView
         RequestsForHelp.Add(requestForHelp.Id, requestForHelp);
         return Task.CompletedTask;
     }
+
+    public Task AssignPotentialHelper(Guid id, PotentialHelperViewModel potentialHelper, CancellationToken cancellationToken)
+    {
+        var requestForHelp = RequestsForHelp.GetValueOrDefault(id);
+
+        requestForHelp.PotentialHelpers.Add(potentialHelper);
+
+        return Task.CompletedTask;
+    }
 }

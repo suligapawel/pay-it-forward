@@ -1,3 +1,5 @@
+using System.Security.Claims;
+
 namespace PayItForward.Shared.Implementations;
 
 public interface ICurrentUser

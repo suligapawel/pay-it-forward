@@ -5,10 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using PayItForward.Gateway.Identity.API.Controllers;
+using PayItForward.Gateway.Identity.Proxies;
 using PayItForward.Gateway.Identity.Repositories;
 using PayItForward.Gateway.Identity.Services;
 using PayItForward.Gateway.Identity.Services.Abstraction;
 using PayItForward.Gateway.Identity.Settings;
+using PayItForward.Gateway.Shared.Proxies;
 using PayItForward.Shared.Implementations;
 
 [assembly: InternalsVisibleTo("PayItForward.Gateway.Api")]
@@ -27,7 +29,8 @@ internal static class DependencyInjectionExtensions
             .AddSingleton<IPasswordHasher, PasswordHasher>()
             .AddScoped<ITokenService, JwtToken>()
             .AddScoped<IUserService, UserService>()
-            .AddScoped<IUserRepository, InMemoryUserRepository>();
+            .AddScoped<IUserRepository, InMemoryUserRepository>()
+            .AddScoped<IGetUserNameProxy, GetUserNameProxy>();
     }
 
     private static IServiceCollection AddAuth(this IServiceCollection services, IdentitySettings identitySettings)
@@ -71,7 +74,7 @@ internal static class DependencyInjectionExtensions
 
             if (user.Identity?.IsAuthenticated ?? false)
             {
-                currentUser.Initialize((Guid.Parse(user.FindFirst("nameid").Value)));
+                currentUser.Initialize(Guid.Parse(user.FindFirst("nameid").Value));
             }
 
             await next();

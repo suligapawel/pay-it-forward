@@ -32,7 +32,7 @@ internal static class UsersController
                 [FromServices] ICancellationTokenProvider cancellationToken,
                 [FromBody] SignUp request) =>
             {
-                await userService.SignUp(request.Email, request.Password, cancellationToken.CreateToken());
+                await userService.SignUp(request.Email, request.Name, request.Password, cancellationToken.CreateToken());
             })
             .AddEndpointFilter<RequestValidatorFilter>()
             .WithTags("Users")

@@ -6,4 +6,5 @@ public class RequestForHelpViewModel
     public string NeedyName { get; init; }
     public string Description { get; init; }
     public bool Accepted { get; init; }
+    public List<PotentialHelperViewModel> PotentialHelpers { get; init; } = [];
 }

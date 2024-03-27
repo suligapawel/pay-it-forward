@@ -25,3 +25,10 @@ Content-Type: application/json
 Authorization: Bearer {{helper_access_token}}
 
 ###
+
+GET {{host}}/requests-for-help/{{request_for_help_id}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{helper_access_token}}
+
+###

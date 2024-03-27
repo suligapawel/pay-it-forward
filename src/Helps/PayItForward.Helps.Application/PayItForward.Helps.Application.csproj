@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Gateway\PayItForward.Gateway.Shared\PayItForward.Gateway.Shared.csproj" />
       <ProjectReference Include="..\..\HelpAccount\PayItForward.HelpAccounts.Shared\PayItForward.HelpAccounts.Shared.csproj" />
       <ProjectReference Include="..\..\Shared\PayItForward.Shared.CQRS\PayItForward.Shared.CQRS.csproj" />
       <ProjectReference Include="..\..\Shared\PayItForward.Shared.Implementations\PayItForward.Shared.Implementations.csproj" />

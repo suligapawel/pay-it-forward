@@ -4,6 +4,7 @@ Content-Type: application/json
 
 {
   "email": "{{needy_email}}",
+  "name": "{{needy_name}}",
   "password": "{{password}}"
 }
 ###
@@ -14,6 +15,7 @@ Content-Type: application/json
 
 {
   "email": "{{helper_email}}",
+  "name": "{{helper_name}}",
   "password": "{{password}}"
 }
 ###

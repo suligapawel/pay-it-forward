@@ -27,7 +27,7 @@ internal sealed class UserService : IUserService
         _eventDispatcher = eventDispatcher;
     }
 
-    public async Task<Guid> SignUp(string email, string password, CancellationToken cancellationToken)
+    public async Task<Guid> SignUp(string email, string name, string password, CancellationToken cancellationToken)
     {
         if (await _users.Exists(email, cancellationToken))
         {
@@ -39,6 +39,7 @@ internal sealed class UserService : IUserService
         {
             Id = Guid.NewGuid(),
             Email = email,
+            Name = name,
             Password = _passwordHasher.ComputeHash(Encoding.UTF8.GetBytes(password), salt),
             Salt = salt,
             EmailConfirmed = false,

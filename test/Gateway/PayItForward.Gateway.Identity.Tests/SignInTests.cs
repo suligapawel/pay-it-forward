@@ -32,7 +32,7 @@ internal sealed class SignInTests
     {
         const string email = "something@test.com";
         const string password = "fake_password11";
-        await _service.SignUp(email, password, _cancellationToken);
+        await _service.SignUp(email, "name", password, _cancellationToken);
 
         await _service.SignIn(email, password, _cancellationToken);
 
@@ -52,7 +52,7 @@ internal sealed class SignInTests
     public async Task Should_throw_badCredentialsException_when_password_is_wrong()
     {
         const string email = "something@test.com";
-        await _service.SignUp(email, "fake_password11", _cancellationToken);
+        await _service.SignUp(email, "name","fake_password11", _cancellationToken);
 
         Assert.ThrowsAsync<BadCredentialsException>(() => _service.SignIn(email, "!!fake_password", _cancellationToken));
     }
@@ -62,7 +62,7 @@ internal sealed class SignInTests
     {
         const string email = "something@test.com";
         const string password = "fake_password11";
-        await _service.SignUp(email, password, _cancellationToken);
+        await _service.SignUp(email, "name",password, _cancellationToken);
         var user = await _users.Get(email, _cancellationToken);
         typeof(User)
             .GetProperty(nameof(User.Salt))
