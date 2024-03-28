@@ -6,4 +6,5 @@ public interface IRequestForHelpsViewModelRepository
     Task<RequestForHelpViewModel> GetDetails(Guid id, CancellationToken cancellationToken);
     Task Add(RequestForHelpViewModel requestForHelp, CancellationToken cancellationToken);
     Task AssignPotentialHelper(Guid id, PotentialHelperViewModel potentialHelper, CancellationToken cancellationToken);
+    Task RemovePotentialHelper(Guid id, Guid potentialHelperId, CancellationToken cancellationToken);
 }

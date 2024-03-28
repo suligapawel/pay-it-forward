@@ -5,9 +5,8 @@ namespace PayItForward.Helps.Application.Tests.Fixtures.Repositories;
 
 public class FakeRequestForHelpViewModelRepository : IRequestForHelpsViewModelRepository
 {
-    
     private readonly Dictionary<Guid, RequestForHelpViewModel> _requestsForHelp =
-        new() { { FakeRequestForHelpRepository.ExistedRequestForHelpId.Value, new RequestForHelpViewModel()} };
+        new() { { FakeRequestForHelpRepository.ExistedRequestForHelpId.Value, new RequestForHelpViewModel() } };
 
     public Task<IReadOnlyCollection<RequestForHelpViewModel>> Get(CancellationToken cancellationToken)
         => Task.FromResult<IReadOnlyCollection<RequestForHelpViewModel>>(_requestsForHelp.Values.ToList());
@@ -28,4 +27,14 @@ public class FakeRequestForHelpViewModelRepository : IRequestForHelpsViewModelRe
         requestForHelp.PotentialHelpers.Add(potentialHelper);
 
         return Task.CompletedTask;
-    }}
+    }
+
+    public Task RemovePotentialHelper(Guid id, Guid potentialHelperId, CancellationToken cancellationToken)
+    {
+        var requestForHelp = _requestsForHelp.GetValueOrDefault(id);
+
+        requestForHelp.PotentialHelpers.RemoveAll(x => x.Id == potentialHelperId);
+
+        return Task.CompletedTask;
+    }
+}

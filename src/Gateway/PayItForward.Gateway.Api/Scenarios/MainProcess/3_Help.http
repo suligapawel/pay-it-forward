@@ -10,6 +10,7 @@ Authorization: Bearer {{needy_access_token}}
 > {%
     client.global.set("request_for_help_id", response.body);
 %}
+
 ###
 
 GET {{host}}/requests-for-help/{{request_for_help_id}}
@@ -20,6 +21,20 @@ Authorization: Bearer {{helper_access_token}}
 ###
 
 POST {{host}}/requests-for-help/{{request_for_help_id}}/interests
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{helper_access_token}}
+
+###
+
+GET {{host}}/requests-for-help/{{request_for_help_id}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{helper_access_token}}
+
+###
+
+DELETE {{host}}/requests-for-help/{{request_for_help_id}}/interests
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{helper_access_token}}

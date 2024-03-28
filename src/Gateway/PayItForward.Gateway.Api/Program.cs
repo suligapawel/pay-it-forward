@@ -17,6 +17,8 @@ builder.Services.AddSwaggerGen(options =>
         .SwaggerDoc("v1", new OpenApiInfo { Title = "Pay it forward API", Version = "v1" });
 });
 
+builder.Services.AddCors();
+
 builder.Services
     .AddOwnIdentity(builder.Configuration)
     .AddHelps()
@@ -29,8 +31,8 @@ var payItForwardAssemblies = AppDomain.CurrentDomain
     .ToArray();
 
 builder.Services.AddCqrs(payItForwardAssemblies);
-
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {

@@ -27,4 +27,13 @@ internal class InMemoryRequestForHelpsViewModelRepository : IRequestForHelpsView
 
         return Task.CompletedTask;
     }
+
+    public Task RemovePotentialHelper(Guid id, Guid potentialHelperId, CancellationToken cancellationToken)
+    {
+        var requestForHelp = RequestsForHelp.GetValueOrDefault(id);
+
+        requestForHelp.PotentialHelpers.RemoveAll(x => x.Id == potentialHelperId);
+
+        return Task.CompletedTask;
+    }
 }
