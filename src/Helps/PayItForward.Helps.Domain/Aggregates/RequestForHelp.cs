@@ -47,22 +47,27 @@ public sealed class RequestForHelp
 
         return new InterestExpressed(Id, potentialHelper);
     }
-    
+
     public MindChanged DoNotHelp(PotentialHelper potentialHelper)
     {
         if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
         {
             throw new TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers(potentialHelper);
         }
-        
+
         _groupOfPotentialHelpers.Remove(potentialHelper);
 
         return new MindChanged(Id, potentialHelper);
     }
 
+    public void Accept(Needy needy, PotentialHelper potentialHelper)
+    {
+        throw new NotImplementedException();
+    }
+
     public bool IsInGroupOfPotentialHelpers(PotentialHelper potentialHelper)
         => _groupOfPotentialHelpers.Contains(potentialHelper);
-    
-    private bool IsInTheGroupOfPotentialHelpers(PotentialHelper potentialHelper) 
+
+    private bool IsInTheGroupOfPotentialHelpers(PotentialHelper potentialHelper)
         => _groupOfPotentialHelpers.Contains(potentialHelper);
 }

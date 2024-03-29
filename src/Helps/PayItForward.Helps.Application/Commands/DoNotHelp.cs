@@ -1,5 +1,4 @@
 using PayItForward.Helps.Application.Exceptions;
-using PayItForward.Helps.Application.ViewModels;
 using PayItForward.Helps.Application.ViewModels.Repositories;
 using PayItForward.Helps.Domain.Repositories;
 using PayItForward.Helps.Domain.ValueObjects;
@@ -7,7 +6,7 @@ using PayItForward.Shared.CQRS.Commands.Abstractions;
 
 namespace PayItForward.Helps.Application.Commands;
 
-internal record DoNotHelp(RequestForHelpId RequestForHelpId, PotentialHelper PotentialHelper) : Command;
+public record DoNotHelp(RequestForHelpId RequestForHelpId, PotentialHelper PotentialHelper) : Command;
 
 internal sealed class DoNotHelpHandler : ICommandHandler<DoNotHelp>
 {
