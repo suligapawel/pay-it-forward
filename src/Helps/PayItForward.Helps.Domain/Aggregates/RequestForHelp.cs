@@ -62,7 +62,6 @@ public sealed class RequestForHelp
 
     public void Accept(Needy needy, PotentialHelper potentialHelper)
     {
-        throw new NotImplementedException();
     }
 
     public bool IsInGroupOfPotentialHelpers(PotentialHelper potentialHelper)

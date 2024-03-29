@@ -11,12 +11,10 @@ public record AcceptPotentialHelper(RequestForHelpId RequestForHelpId, Needy Nee
 internal sealed class AcceptPotentialHelperHandler : ICommandHandler<AcceptPotentialHelper>
 {
     private readonly IRequestForHelpRepository _requestsForHelp;
-    private readonly IHelpAccountProxy _helpAccountProxy;
 
-    public AcceptPotentialHelperHandler(IRequestForHelpRepository requestsForHelp, IHelpAccountProxy helpAccountProxy)
+    public AcceptPotentialHelperHandler(IRequestForHelpRepository requestsForHelp)
     {
         _requestsForHelp = requestsForHelp;
-        _helpAccountProxy = helpAccountProxy;
     }
 
     public async Task Handle(AcceptPotentialHelper command, CancellationToken cancellationToken)
@@ -30,5 +28,6 @@ internal sealed class AcceptPotentialHelperHandler : ICommandHandler<AcceptPoten
 
         requestForHelp.Accept(command.Needy, command.PotentialHelper);
 
-        await _requestsForHelp.Update(requestForHelp, cancellationToken);    }
+        await _requestsForHelp.Update(requestForHelp, cancellationToken);
+    }
 }
