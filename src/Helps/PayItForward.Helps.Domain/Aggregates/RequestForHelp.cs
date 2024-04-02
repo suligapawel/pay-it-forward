@@ -63,7 +63,7 @@ public sealed class RequestForHelp
         {
             throw new PotentialHelperAbandonedTheRequest(potentialHelper);
         }
-        
+
         if (!IsInGroupOfPotentialHelpers(potentialHelper))
         {
             throw new TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers(potentialHelper);
@@ -82,11 +82,14 @@ public sealed class RequestForHelp
 
     public HelpRequestAccepted Accept(Needy needy, PotentialHelper potentialHelper)
     {
-        _chosenHelper = potentialHelper;
-
         if (!_needy.IsTheSamePersonAs(needy))
         {
             throw new NeedyIsNotOwner(needy);
+        }
+
+        if (IsAccepted())
+        {
+            throw new SomeoneIsAlreadyHelpingWithThis();
         }
 
         if (!IsInGroupOfPotentialHelpers(potentialHelper))
@@ -94,6 +97,8 @@ public sealed class RequestForHelp
             throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);
         }
 
+        _chosenHelper = potentialHelper;
+        
         return new HelpRequestAccepted(needy, potentialHelper);
     }
 

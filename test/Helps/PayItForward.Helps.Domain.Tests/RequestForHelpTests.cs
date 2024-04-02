@@ -114,7 +114,7 @@ public class RequestForHelpTests
 
         Assert.Throws<PotentialHelperAbandonedTheRequest>(() => requestForHelp.DoNotHelp(potentialHelper));
     }
-    
+
     [Test]
     public void Should_accept_potential_helper()
     {
@@ -130,7 +130,6 @@ public class RequestForHelpTests
             Assert.That(requestForHelp.IsAccepted(), Is.True);
         });
     }
-
 
     [Test]
     public void Should_not_accept_potential_helper_when_potential_helper_is_not_in_the_group_of_potential_helpers()
@@ -150,6 +149,20 @@ public class RequestForHelpTests
         var requestForHelp = AnyRequestForHelp();
 
         Assert.Throws<NeedyIsNotOwner>(() => requestForHelp.Accept(needy, potentialHelper));
+    }
+
+    [Test]
+    public void Should_not_accept_potential_helper_when_the_helper_is_chosen()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var otherPotentialHelper = AnyPotentialHelper();
+        var needy = AnyNeedy();
+        var requestForHelp = AnyRequestForHelp(
+            needy: needy, 
+            potentialHelpers: [potentialHelper, otherPotentialHelper],
+            chosenHelper: potentialHelper);
+
+        Assert.Throws<SomeoneIsAlreadyHelpingWithThis>(() => requestForHelp.Accept(needy, otherPotentialHelper));
     }
 
     private static RequestForHelp AnyRequestForHelp(
