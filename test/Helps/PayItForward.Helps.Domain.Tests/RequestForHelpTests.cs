@@ -51,12 +51,21 @@ public class RequestForHelpTests
 
         Assert.Throws<PotentialHelperAbandonedTheRequest>(() => requestForHelp.ExpressInterest(potentialHelper));
     }
+
+    [Test]
+    public void Should_not_add_to_the_group_of_potential_helpers_when_helper_is_already_chosen()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var requestForHelp = AnyRequestForHelp(potentialHelpers: [potentialHelper], chosenHelper: potentialHelper);
+
+        Assert.Throws<SomeoneIsAlreadyHelpingWithThis>(() => requestForHelp.ExpressInterest(potentialHelper));
+    }
     
     [Test]
     public void Should_do_not_help()
     {
         var potentialHelper = AnyPotentialHelper();
-        var requestForHelp = AnyRequestForHelp(potentialHelpers: [potentialHelper]);
+        var requestForHelp = AnyRequestForHelp(potentialHelpers: [potentialHelper], chosenHelper: potentialHelper);
 
         var domainEvent = requestForHelp.DoNotHelp(potentialHelper);
 
@@ -66,9 +75,10 @@ public class RequestForHelpTests
             Assert.That(domainEvent.RequestForHelpId, Is.EqualTo(requestForHelp.Id));
             Assert.That(domainEvent.PotentialHelper, Is.EqualTo(potentialHelper));
             Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+            Assert.That(requestForHelp.IsAccepted(), Is.False);
         });
-    } 
-    
+    }
+
     [Test]
     public void Dont_let_leave_the_group_of_potential_helpers_when_the_leaver_does_not_belong_there()
     {
@@ -77,12 +87,29 @@ public class RequestForHelpTests
 
         Assert.Throws<TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers>(() => requestForHelp.DoNotHelp(potentialHelper));
     }
+    
+    [Test]
+    public void Should_accept_potential_helper()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var needy = AnyNeedy();
+        var requestForHelp = AnyRequestForHelp(needy: needy, potentialHelpers: new[] { potentialHelper });
+
+        var domainEvent = requestForHelp.Accept(needy, potentialHelper);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(domainEvent, Is.TypeOf<HelpRequestAccepted>());
+            Assert.That(requestForHelp.IsAccepted(), Is.True);
+        });
+    }
 
     private static RequestForHelp AnyRequestForHelp(
         Needy needy = default,
         IEnumerable<PotentialHelper> potentialHelpers = default,
-        IEnumerable<PotentialHelper> abandoners = default)
-        => new(new RequestForHelpId(Guid.NewGuid()), needy ?? new Needy(Guid.NewGuid()), potentialHelpers, abandoners);
+        IEnumerable<PotentialHelper> abandoners = default,
+        PotentialHelper chosenHelper = default)
+        => new(new RequestForHelpId(Guid.NewGuid()), needy ?? new Needy(Guid.NewGuid()), potentialHelpers, abandoners, chosenHelper);
 
     private static Needy AnyNeedy()
         => new(Guid.NewGuid());
