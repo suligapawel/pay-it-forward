@@ -41,12 +41,12 @@ public sealed class RequestForHelp
             throw new SomeoneIsAlreadyHelpingWithThis();
         }
 
-        if (IsInTheGroupOfPotentialHelpers(potentialHelper))
+        if (IsInGroupOfPotentialHelpers(potentialHelper))
         {
             throw new HasAlreadyExpressedInterest(potentialHelper);
         }
 
-        if (_abandoners.Contains(potentialHelper))
+        if (AlreadyAbandoned(potentialHelper))
         {
             throw new PotentialHelperAbandonedTheRequest(potentialHelper);
         }
@@ -56,15 +56,26 @@ public sealed class RequestForHelp
         return new InterestExpressed(Id, potentialHelper);
     }
 
+
     public MindChanged DoNotHelp(PotentialHelper potentialHelper)
     {
-        if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
+        if (AlreadyAbandoned(potentialHelper))
+        {
+            throw new PotentialHelperAbandonedTheRequest(potentialHelper);
+        }
+        
+        if (!IsInGroupOfPotentialHelpers(potentialHelper))
         {
             throw new TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers(potentialHelper);
         }
 
         _groupOfPotentialHelpers.Remove(potentialHelper);
-        _chosenHelper = null;
+        _abandoners.Add(potentialHelper);
+
+        if (_chosenHelper?.IsTheSamePersonAs(potentialHelper) ?? false)
+        {
+            _chosenHelper = null;
+        }
 
         return new MindChanged(Id, potentialHelper);
     }
@@ -78,7 +89,7 @@ public sealed class RequestForHelp
             throw new NeedyIsNotOwner(needy);
         }
 
-        if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
+        if (!IsInGroupOfPotentialHelpers(potentialHelper))
         {
             throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);
         }
@@ -91,6 +102,6 @@ public sealed class RequestForHelp
     public bool IsInGroupOfPotentialHelpers(PotentialHelper potentialHelper)
         => _groupOfPotentialHelpers.Contains(potentialHelper);
 
-    private bool IsInTheGroupOfPotentialHelpers(PotentialHelper potentialHelper)
-        => _groupOfPotentialHelpers.Contains(potentialHelper);
+    private bool AlreadyAbandoned(PotentialHelper potentialHelper)
+        => _abandoners.Contains(potentialHelper);
 }

@@ -60,9 +60,27 @@ public class RequestForHelpTests
 
         Assert.Throws<SomeoneIsAlreadyHelpingWithThis>(() => requestForHelp.ExpressInterest(potentialHelper));
     }
-    
+
     [Test]
-    public void Should_do_not_help()
+    public void Should_do_not_help_but_leave_the_request_for_help_blocked_when_chosen_helper_is_someone_else()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var requestForHelp = AnyRequestForHelp(potentialHelpers: [potentialHelper], chosenHelper: AnyPotentialHelper());
+
+        var domainEvent = requestForHelp.DoNotHelp(potentialHelper);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(domainEvent, Is.TypeOf<MindChanged>());
+            Assert.That(domainEvent.RequestForHelpId, Is.EqualTo(requestForHelp.Id));
+            Assert.That(domainEvent.PotentialHelper, Is.EqualTo(potentialHelper));
+            Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+            Assert.That(requestForHelp.IsAccepted(), Is.True);
+        });
+    }
+
+    [Test]
+    public void Should_do_not_help_and_do_the_request_for_help_active_when_potential_helper_was_chosen()
     {
         var potentialHelper = AnyPotentialHelper();
         var requestForHelp = AnyRequestForHelp(potentialHelpers: [potentialHelper], chosenHelper: potentialHelper);
@@ -80,12 +98,21 @@ public class RequestForHelpTests
     }
 
     [Test]
-    public void Dont_let_leave_the_group_of_potential_helpers_when_the_leaver_does_not_belong_there()
+    public void Should_not_leave_the_group_of_potential_helpers_when_the_leaver_does_not_belong_there()
     {
         var potentialHelper = AnyPotentialHelper();
         var requestForHelp = AnyRequestForHelp();
 
         Assert.Throws<TheLeaverDoesNotBelongToTheGroupOfPotentialHelpers>(() => requestForHelp.DoNotHelp(potentialHelper));
+    }
+
+    [Test]
+    public void Should_not_leave_the_group_of_potential_helpers_when_the_leaver_already_abandoned()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var requestForHelp = AnyRequestForHelp(abandoners: [potentialHelper]);
+
+        Assert.Throws<PotentialHelperAbandonedTheRequest>(() => requestForHelp.DoNotHelp(potentialHelper));
     }
     
     [Test]
@@ -103,8 +130,8 @@ public class RequestForHelpTests
             Assert.That(requestForHelp.IsAccepted(), Is.True);
         });
     }
-    
-        
+
+
     [Test]
     public void Should_not_accept_potential_helper_when_potential_helper_is_not_in_the_group_of_potential_helpers()
     {
@@ -114,7 +141,7 @@ public class RequestForHelpTests
 
         Assert.Throws<PotentialHelperIsNotInTheGroupOfPotentialHelpers>(() => requestForHelp.Accept(needy, potentialHelper));
     }
-    
+
     [Test]
     public void Should_not_accept_potential_helper_when_needy_is_not_an_owner_of_request_for_help()
     {
