@@ -103,6 +103,17 @@ public class RequestForHelpTests
             Assert.That(requestForHelp.IsAccepted(), Is.True);
         });
     }
+    
+        
+    [Test]
+    public void Should_not_accept_potential_helper_when_potential_helper_is_not_in_the_group_of_potential_helpers()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var needy = AnyNeedy();
+        var requestForHelp = AnyRequestForHelp(needy: needy);
+
+        Assert.Throws<PotentialHelperIsNotInTheGroupOfPotentialHelpers>(() => requestForHelp.Accept(needy, potentialHelper));
+    }
 
     private static RequestForHelp AnyRequestForHelp(
         Needy needy = default,

@@ -73,6 +73,11 @@ public sealed class RequestForHelp
     {
         _chosenHelper = potentialHelper;
 
+        if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
+        {
+            throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);
+        }
+
         return new HelpRequestAccepted(needy, potentialHelper);
     }
 
