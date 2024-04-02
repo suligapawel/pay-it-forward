@@ -73,6 +73,11 @@ public sealed class RequestForHelp
     {
         _chosenHelper = potentialHelper;
 
+        if (!_needy.IsTheSamePersonAs(needy))
+        {
+            throw new NeedyIsNotOwner(needy);
+        }
+
         if (!IsInTheGroupOfPotentialHelpers(potentialHelper))
         {
             throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);

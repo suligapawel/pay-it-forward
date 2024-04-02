@@ -114,6 +114,16 @@ public class RequestForHelpTests
 
         Assert.Throws<PotentialHelperIsNotInTheGroupOfPotentialHelpers>(() => requestForHelp.Accept(needy, potentialHelper));
     }
+    
+    [Test]
+    public void Should_not_accept_potential_helper_when_needy_is_not_an_owner_of_request_for_help()
+    {
+        var potentialHelper = AnyPotentialHelper();
+        var needy = AnyNeedy();
+        var requestForHelp = AnyRequestForHelp();
+
+        Assert.Throws<NeedyIsNotOwner>(() => requestForHelp.Accept(needy, potentialHelper));
+    }
 
     private static RequestForHelp AnyRequestForHelp(
         Needy needy = default,
