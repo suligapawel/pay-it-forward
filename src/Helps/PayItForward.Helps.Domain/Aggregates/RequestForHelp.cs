@@ -97,9 +97,10 @@ public sealed class RequestForHelp
             throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);
         }
 
+        _groupOfPotentialHelpers.Remove(potentialHelper);
         _chosenHelper = potentialHelper;
-        
-        return new HelpRequestAccepted(needy, potentialHelper);
+
+        return new HelpRequestAccepted(Id, needy, potentialHelper);
     }
 
     public bool IsAccepted() => _chosenHelper is not null;

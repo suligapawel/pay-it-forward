@@ -128,6 +128,7 @@ public class RequestForHelpTests
         {
             Assert.That(domainEvent, Is.TypeOf<HelpRequestAccepted>());
             Assert.That(requestForHelp.IsAccepted(), Is.True);
+            Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
         });
     }
 

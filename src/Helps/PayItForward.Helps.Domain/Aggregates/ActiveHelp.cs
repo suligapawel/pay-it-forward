@@ -21,6 +21,13 @@ public sealed class ActiveHelp
         _state = state;
     }
 
+    public static ActiveHelp NewFrom(HelpRequestAccepted @event, DateTime expiryDate)
+        => new(
+            new ActiveHelpId(@event.RequestForHelpId.Value),
+            new Helper(@event.PotentialHelper.Id),
+            expiryDate,
+            ActiveHelpState.Active);
+
     public HelpCompleted Complete(Helper helper, IClock clock)
     {
         if (!_helper.AmITheHelper(helper))

@@ -2,4 +2,4 @@ using PayItForward.Helps.Domain.ValueObjects;
 
 namespace PayItForward.Helps.Domain.Events;
 
-public record HelpRequestAccepted(Needy Needy, PotentialHelper PotentialHelper);
+public record HelpRequestAccepted(RequestForHelpId RequestForHelpId, Needy Needy, PotentialHelper PotentialHelper);

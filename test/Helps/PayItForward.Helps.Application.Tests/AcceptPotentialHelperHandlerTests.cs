@@ -3,36 +3,43 @@ using PayItForward.Helps.Application.Exceptions;
 using PayItForward.Helps.Application.Tests.Fixtures.Repositories;
 using PayItForward.Helps.Domain.Repositories;
 using PayItForward.Helps.Domain.ValueObjects;
+using PayItForward.Shared.Implementations;
 
 namespace PayItForward.Helps.Application.Tests;
 
 public class AcceptPotentialHelperHandlerTests
 {
     private AcceptPotentialHelperHandler _handler;
-    private IRequestForHelpRepository _repo;
+    private IRequestForHelpRepository _requestsForHelpRepo;
+    private IActiveHelpRepository _activeHelpRepo;
     private CancellationToken _cancellationToken;
 
     [SetUp]
     public void Setup()
     {
         _cancellationToken = CancellationToken.None;
-        _repo = new FakeRequestForHelpRepository();
-        _handler = new AcceptPotentialHelperHandler(_repo);
+        _requestsForHelpRepo = new FakeRequestForHelpRepository();
+        _activeHelpRepo = new FakeActiveHelpRepository();
+        _handler = new AcceptPotentialHelperHandler(_requestsForHelpRepo, _activeHelpRepo, new Clock());
     }
 
     [Test]
     public async Task Should_accept_potential_helper()
     {
         var requestForHelpId = FakeRequestForHelpRepository.ExistedRequestForHelpId;
-        var requestForHelp = await _repo.Get(requestForHelpId, _cancellationToken);
+        var requestForHelp = await _requestsForHelpRepo.Get(requestForHelpId, _cancellationToken);
         var potentialHelper = AnyPotentialHelper();
         requestForHelp.ExpressInterest(potentialHelper);
         var command = new AcceptPotentialHelper(requestForHelpId, FakeRequestForHelpRepository.Needy, potentialHelper);
 
         await _handler.Handle(command, _cancellationToken);
 
-        // TODO: Check the active help
-        // Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+        var activeHelp = await _activeHelpRepo.Get(new ActiveHelpId(requestForHelpId.Value), _cancellationToken);
+        Assert.Multiple(() =>
+        {
+            Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+            Assert.That(activeHelp, Is.Not.Null);
+        });
     }
 
     [Test]
