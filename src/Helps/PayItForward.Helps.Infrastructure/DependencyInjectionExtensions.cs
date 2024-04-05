@@ -13,5 +13,6 @@ internal static class DependencyInjectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         => services
             .AddScoped<IRequestForHelpRepository, InMemoryRequestForHelpRepository>()
+            .AddScoped<IActiveHelpRepository, InMemoryActiveHelpRepository>()
             .AddScoped<IRequestForHelpsViewModelRepository, InMemoryRequestForHelpsViewModelRepository>();
 }
