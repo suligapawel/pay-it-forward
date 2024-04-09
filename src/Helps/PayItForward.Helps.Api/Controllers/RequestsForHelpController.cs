@@ -19,20 +19,21 @@ internal static class RequestsForHelpController
     {
         app
             .GetDetails()
-            .Post();
+            .CreateRequestForHelp()
+            .AcceptPotentialHelper();
 
         return app;
     }
 
-    private static IEndpointRouteBuilder Post(this IEndpointRouteBuilder app)
+    private static IEndpointRouteBuilder CreateRequestForHelp(this IEndpointRouteBuilder app)
     {
         app.MapPost("/requests-for-help", async
             (
                 [FromServices] ICommandDispatcher dispatcher,
                 [FromServices] ICurrentUser currentUser,
-                [FromBody] CreateRequestForHelp createRequestForHelp) =>
+                [FromBody] CreateRequestForHelp request) =>
             {
-                var command = createRequestForHelp.AsCommand(currentUser.Id);
+                var command = request.AsCommand(currentUser.Id);
                 await dispatcher.Execute(command);
 
                 return TypedResults.Ok(command.AggregateId);
@@ -44,6 +45,29 @@ internal static class RequestsForHelpController
 
         return app;
     }
+
+    private static IEndpointRouteBuilder AcceptPotentialHelper(this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/requests-for-help/{id:Guid}/accepts", async
+            (
+                [FromServices] ICommandDispatcher dispatcher,
+                [FromServices] ICurrentUser currentUser,
+                Guid id,
+                [FromBody] AcceptPotentialHelper request) =>
+            {
+                var command = request.AsCommand(id, currentUser.Id);
+                await dispatcher.Execute(command);
+
+                return TypedResults.Ok(id);
+            })
+            .RequireAuthorization()
+            .AddEndpointFilter<RequestValidatorFilter>()
+            .WithTags("Requests for help")
+            .WithOpenApi();
+
+        return app;
+    }
+
 
     private static IEndpointRouteBuilder GetDetails(this IEndpointRouteBuilder app)
     {
