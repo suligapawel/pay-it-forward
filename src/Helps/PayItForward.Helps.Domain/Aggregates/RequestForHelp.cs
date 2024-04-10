@@ -97,7 +97,6 @@ public sealed class RequestForHelp
             throw new PotentialHelperIsNotInTheGroupOfPotentialHelpers(potentialHelper);
         }
 
-        _groupOfPotentialHelpers.Remove(potentialHelper);
         _chosenHelper = potentialHelper;
 
         return new HelpRequestAccepted(Id, needy, potentialHelper);

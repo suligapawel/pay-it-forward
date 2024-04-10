@@ -37,7 +37,7 @@ public class AcceptPotentialHelperHandlerTests
         var activeHelp = await _activeHelpRepo.Get(new ActiveHelpId(requestForHelpId.Value), _cancellationToken);
         Assert.Multiple(() =>
         {
-            Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.False);
+            Assert.That(requestForHelp.IsInGroupOfPotentialHelpers(potentialHelper), Is.True);
             Assert.That(activeHelp, Is.Not.Null);
         });
     }

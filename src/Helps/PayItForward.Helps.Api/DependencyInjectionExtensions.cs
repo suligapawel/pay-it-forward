@@ -19,6 +19,7 @@ internal static class DependencyInjectionExtensions
     {
         app.AddRequestsForHelpController();
         app.AddInterestInRequestForHelpController();
+        app.AddHelpsController();
 
         return app;
     }

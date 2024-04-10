@@ -33,11 +33,11 @@ Content-Type: application/json
 Authorization: Bearer {{helper_access_token}}
 
 ###
-
-DELETE {{host}}/requests-for-help/{{request_for_help_id}}/interests
-Accept: application/json
-Content-Type: application/json
-Authorization: Bearer {{helper_access_token}}
+#
+#DELETE {{host}}/requests-for-help/{{request_for_help_id}}/interests
+#Accept: application/json
+#Content-Type: application/json
+#Authorization: Bearer {{helper_access_token}}
 
 ###
 
@@ -54,5 +54,21 @@ Content-Type: application/json
 Authorization: Bearer {{needy_access_token}}
 
 {
-  "potentialHelperId": {{helper_access_token}}
+  "potentialHelperId": "cd9f992e-40d8-4fb2-ae56-b3efbae633f5"
 }
+
+###
+
+DELETE {{host}}/helps/{{request_for_help_id}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{helper_access_token}}
+
+###
+
+GET {{host}}/requests-for-help/{{request_for_help_id}}
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{helper_access_token}}
+
+###
