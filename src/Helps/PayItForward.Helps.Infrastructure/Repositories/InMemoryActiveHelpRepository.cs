@@ -14,6 +14,9 @@ public class InMemoryActiveHelpRepository : IActiveHelpRepository
         return Task.CompletedTask;
     }
 
+    public Task Update(ActiveHelp activeHelp, CancellationToken cancellationToken) 
+        => Task.CompletedTask;
+
     public Task<ActiveHelp> Get(ActiveHelpId id, CancellationToken cancellationToken)
         => Task.FromResult(ActiveHelps.GetValueOrDefault(id));
 }

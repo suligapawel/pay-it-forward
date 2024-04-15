@@ -15,7 +15,29 @@ internal static class HelpController
 
     internal static IApplicationBuilder AddHelpsController(this WebApplication app)
     {
-        app.Abandon();
+        app
+            .Complete()
+            .Abandon();
+
+        return app;
+    }
+
+    private static IEndpointRouteBuilder Complete(this IEndpointRouteBuilder app)
+    {
+        app.MapPost("/helps/{id:Guid}", async
+            (
+                [FromServices] ICommandDispatcher dispatcher,
+                [FromServices] ICurrentUser currentUser,
+                Guid id) =>
+            {
+                var command = new Complete(new ActiveHelpId(id), new Helper(currentUser.Id));
+                await dispatcher.Execute(command);
+
+                return TypedResults.Ok(id);
+            })
+            .RequireAuthorization()
+            .WithTags("Helps")
+            .WithOpenApi();
 
         return app;
     }

@@ -9,31 +9,31 @@ using PayItForward.Shared.Kernel.Helpers;
 namespace PayItForward.Helps.Application.Commands;
 
 // TODO: Tests
-public record Abandon(ActiveHelpId ActiveHelpId, Helper Helper) : Command;
+public record Complete(ActiveHelpId ActiveHelpId, Helper Helper) : Command;
 
-public class AbandonHandler : ICommandHandler<Abandon>
+internal sealed class CompleteHandler : ICommandHandler<Complete>
 {
     private readonly IActiveHelpRepository _activeHelps;
     private readonly IClock _clock;
     private readonly IEventDispatcher _dispatcher;
 
-    public AbandonHandler(IActiveHelpRepository activeHelps, IClock clock, IEventDispatcher dispatcher)
+    public CompleteHandler(IActiveHelpRepository activeHelps, IClock clock, IEventDispatcher dispatcher)
     {
         _activeHelps = activeHelps;
         _clock = clock;
         _dispatcher = dispatcher;
     }
 
-    public async Task Handle(Abandon command, CancellationToken cancellationToken)
+    public async Task Handle(Complete command, CancellationToken cancellationToken)
     {
         var activeHelp = await _activeHelps.Get(command.ActiveHelpId, cancellationToken);
 
-        var @event = activeHelp.Abandon(command.Helper, _clock);
+        var @event = activeHelp.Complete(command.Helper, _clock);
 
         await _activeHelps.Update(activeHelp, cancellationToken);
         await _dispatcher.Publish(Map(@event));
     }
 
-    private static ActiveHelpWasAbandoned Map(HelpAbandoned @event)
-        => new(@event.HelpId.Value, @event.Helper.Id);
+    private static ActiveHelpCompleted Map(HelpCompleted @event)
+        => new(@event.ActiveHelpId.Value, @event.Helper.Id);
 }

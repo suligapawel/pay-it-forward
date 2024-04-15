@@ -14,6 +14,9 @@ public class FakeActiveHelpRepository : IActiveHelpRepository
         return Task.CompletedTask;
     }
 
+    public Task Update(ActiveHelp activeHelp, CancellationToken cancellationToken)
+        => Task.CompletedTask;
+
     public Task<ActiveHelp> Get(ActiveHelpId id, CancellationToken cancellationToken)
         => Task.FromResult(_activeHelps.GetValueOrDefault(id));
 }

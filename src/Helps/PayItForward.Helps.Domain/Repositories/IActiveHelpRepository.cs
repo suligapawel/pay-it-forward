@@ -6,5 +6,6 @@ namespace PayItForward.Helps.Domain.Repositories;
 public interface IActiveHelpRepository
 {
     Task Add(ActiveHelp activeHelp, CancellationToken cancellationToken);
+    Task Update(ActiveHelp activeHelp, CancellationToken cancellationToken);
     Task<ActiveHelp> Get(ActiveHelpId id, CancellationToken cancellationToken);
 }
