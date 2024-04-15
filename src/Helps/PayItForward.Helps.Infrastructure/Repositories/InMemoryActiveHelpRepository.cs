@@ -6,17 +6,25 @@ namespace PayItForward.Helps.Infrastructure.Repositories;
 
 public class InMemoryActiveHelpRepository : IActiveHelpRepository
 {
-    private static readonly Dictionary<ActiveHelpId, ActiveHelp> ActiveHelps = new();
+    private static readonly Dictionary<ActiveHelpId, List<ActiveHelp>> ActiveHelps = new();
 
     public Task Add(ActiveHelp activeHelp, CancellationToken cancellationToken)
     {
-        ActiveHelps.Add(activeHelp.Id, activeHelp);
+        if (ActiveHelps.TryGetValue(activeHelp.Id, out var help))
+        {
+            help.Add(activeHelp);
+        }
+        else
+        {
+            ActiveHelps.Add(activeHelp.Id, [activeHelp]);
+        }
+
         return Task.CompletedTask;
     }
 
-    public Task Update(ActiveHelp activeHelp, CancellationToken cancellationToken) 
+    public Task Update(ActiveHelp activeHelp, CancellationToken cancellationToken)
         => Task.CompletedTask;
 
     public Task<ActiveHelp> Get(ActiveHelpId id, CancellationToken cancellationToken)
-        => Task.FromResult(ActiveHelps.GetValueOrDefault(id));
+        => Task.FromResult(ActiveHelps.GetValueOrDefault(id).FirstOrDefault(x => x.IsActive()));
 }

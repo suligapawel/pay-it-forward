@@ -48,7 +48,7 @@ Content-Type: application/json
 Authorization: Bearer {{needy_access_token}}
 
 {
-  "potentialHelperId": "a4e84adc-9c54-4589-95c7-0ff57dab1d8c"
+  "potentialHelperId": "0a24251f-fdb0-4ae7-803f-367c3f20ab3a"
 }
 
 ###
