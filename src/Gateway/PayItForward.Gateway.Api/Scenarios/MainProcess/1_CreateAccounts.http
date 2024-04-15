@@ -19,3 +19,16 @@ Content-Type: application/json
   "password": "{{password}}"
 }
 ###
+
+###
+
+POST {{host}}/sign-up/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{other_user_email}}",
+  "name": "{{other_user_name}}",
+  "password": "{{password}}"
+}
+###

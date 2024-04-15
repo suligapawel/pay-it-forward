@@ -32,7 +32,7 @@ public class AbandonHandler : ICommandHandler<Abandon>
 
         await _activeHelps.Update(activeHelp, cancellationToken);
         await _dispatcher.Publish(Map(@event));
-    }
+     }
 
     private static ActiveHelpWasAbandoned Map(HelpAbandoned @event)
         => new(@event.HelpId.Value, @event.Helper.Id);

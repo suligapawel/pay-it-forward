@@ -25,3 +25,18 @@ Content-Type: application/json
     client.global.set("helper_access_token", response.body.accessToken.value);
 %}
 ###
+
+
+POST {{host}}/sign-in/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{other_user_email}}",
+  "password": "{{password}}"
+}
+
+> {%
+    client.global.set("other_user_access_token", response.body.accessToken.value);
+%}
+###
