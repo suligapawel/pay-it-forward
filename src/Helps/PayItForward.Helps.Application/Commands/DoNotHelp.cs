@@ -33,5 +33,6 @@ internal sealed class DoNotHelpHandler : ICommandHandler<DoNotHelp>
 
         await _requestsForHelp.Update(requestForHelp, cancellationToken);
         await _viewModel.RemovePotentialHelper(command.RequestForHelpId.Value, command.PotentialHelper.Id, cancellationToken);
+        await _viewModel.ToggleAccept(command.RequestForHelpId.Value, false, cancellationToken);
     }
 }

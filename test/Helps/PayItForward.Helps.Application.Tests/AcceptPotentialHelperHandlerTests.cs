@@ -20,7 +20,7 @@ public class AcceptPotentialHelperHandlerTests
         _cancellationToken = CancellationToken.None;
         _requestsForHelpRepo = new FakeRequestForHelpRepository();
         _activeHelpRepo = new FakeActiveHelpRepository();
-        _handler = new AcceptPotentialHelperHandler(_requestsForHelpRepo, _activeHelpRepo, new Clock());
+        _handler = new AcceptPotentialHelperHandler(_requestsForHelpRepo, _activeHelpRepo, new FakeRequestForHelpViewModelRepository(), new Clock());
     }
 
     [Test]

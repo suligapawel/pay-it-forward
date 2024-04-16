@@ -20,6 +20,15 @@ public class FakeRequestForHelpViewModelRepository : IRequestForHelpsViewModelRe
         return Task.CompletedTask;
     }
 
+    public Task ToggleAccept(Guid id, bool accepted, CancellationToken cancellationToken)
+    {
+        var requestForHelp = _requestsForHelp.GetValueOrDefault(id);
+
+        requestForHelp.Accepted = accepted;
+
+        return Task.CompletedTask;
+    }
+
     public Task AssignPotentialHelper(Guid id, PotentialHelperViewModel potentialHelper, CancellationToken cancellationToken)
     {
         var requestForHelp = _requestsForHelp.GetValueOrDefault(id);

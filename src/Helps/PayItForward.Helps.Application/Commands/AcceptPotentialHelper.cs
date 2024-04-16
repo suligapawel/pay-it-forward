@@ -1,4 +1,5 @@
 using PayItForward.Helps.Application.Exceptions;
+using PayItForward.Helps.Application.ViewModels.Repositories;
 using PayItForward.Helps.Domain.Aggregates;
 using PayItForward.Helps.Domain.Repositories;
 using PayItForward.Helps.Domain.ValueObjects;
@@ -13,16 +14,20 @@ internal sealed class AcceptPotentialHelperHandler : ICommandHandler<AcceptPoten
 {
     private readonly IRequestForHelpRepository _requestsForHelp;
     private readonly IActiveHelpRepository _activeHelps;
+    private readonly IRequestForHelpsViewModelRepository _viewModel;
+
     private readonly IClock _clock;
 
     public AcceptPotentialHelperHandler(
         IRequestForHelpRepository requestsForHelp,
         IActiveHelpRepository activeHelps,
+        IRequestForHelpsViewModelRepository viewModel,
         IClock clock)
     {
         _requestsForHelp = requestsForHelp;
         _activeHelps = activeHelps;
         _clock = clock;
+        _viewModel = viewModel;
     }
 
     public async Task Handle(AcceptPotentialHelper command, CancellationToken cancellationToken)
@@ -38,8 +43,9 @@ internal sealed class AcceptPotentialHelperHandler : ICommandHandler<AcceptPoten
 
         // TODO: Think about expiryDate
         var activeHelp = ActiveHelp.NewFrom(accepted, _clock.Now.AddDays(7));
-        
+
         await _requestsForHelp.Update(requestForHelp, cancellationToken);
         await _activeHelps.Add(activeHelp, cancellationToken);
+        await _viewModel.ToggleAccept(requestForHelp.Id.Value, true, cancellationToken);
     }
 }
