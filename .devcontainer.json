@@ -1,0 +1,8 @@
+{
+  "name": ".NET 8.0",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
+  "forwardPorts": [
+    5000,
+    5001
+  ]
+}
